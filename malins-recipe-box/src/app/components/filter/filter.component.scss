@@ -1,0 +1,38 @@
+@use "../../../variables";
+@import "../../../styles.scss";
+
+.filter-section {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: 0 1rem 1rem 1rem;
+    font-family: $font-tertiary;
+}
+
+.meal-type,
+.preferences {
+    padding-right: 3rem;
+}
+
+.meal-type-options,
+.preferences-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        font-size: $size-tertiary;
+    }
+}
+
+
+
+
+
+h2 {
+    text-transform: uppercase;
+    font-size: $size-secondary;
+}
