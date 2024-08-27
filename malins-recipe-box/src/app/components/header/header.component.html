@@ -1,24 +1,29 @@
 <header class="main-header">
-    <div *ngIf="isMobile()" class="hamburger-menu">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+    <div class="title-container">
+        <a href="/" class="title-link">
+            <h1 class="main-title">Malin's Recipe Box</h1>
+        </a>
+        <div class="profile">
+            <i class="bi bi-person-circle" aria-hidden="true"></i>
+        </div>
     </div>
-    <h1 class="main-title">Malin's Recipe Box</h1>
+
     <nav class="header-navbar">
         <div class="profile-functions">
-            <i class="bi bi-person-fill"></i>
-            <h3>Sign in</h3>
-            <h3>Register</h3>
+            <i class="bi bi-person-circle" aria-hidden="true"></i>
+            <a href="#" class="nav-link">Sign in</a>
+            <a href="#" class="nav-link">Register</a>
         </div>
-        <div class="search-functions">
-            <input type="text" id="search-field" placeholder="Search...">
-            <button class="search" title="Search">
-                <i class="bi bi-search"></i>
+
+        <div class="search-container">
+            <input type="text" id="search-field" placeholder="Search..." aria-label="Search">
+            <button class="search" title="Search" aria-label="Search">
+                <i class="bi bi-search" aria-hidden="true"></i>
             </button>
         </div>
     </nav>
 </header>
+
 <hr class="thin-line">
 
 <main></main>
