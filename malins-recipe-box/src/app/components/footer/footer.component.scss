@@ -1,0 +1,13 @@
+@use "../../../assets/styles/variables";
+@import "../../../assets/styles/styles.scss";
+@import "../../../assets/styles/mixins.scss";
+
+.footer {
+    min-height: 10rem;
+    background-color: $color-quaternary;
+}
+
+section {
+    display: flex;
+    width: 100%;
+}

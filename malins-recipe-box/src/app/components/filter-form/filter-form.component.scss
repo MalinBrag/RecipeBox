@@ -1,0 +1,66 @@
+@use "../../../assets/styles/variables";
+@import "../../../assets/styles/styles.scss";
+@import "../../../assets/styles/mixins.scss";
+
+.filter-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 0 1rem 1rem 1rem;
+    font-family: $font-tertiary;
+    font-size: $size-tertiary;
+}
+
+.closable {
+    display: none;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: $size-secondary;
+    padding-right: 3rem;
+}
+
+.meal-type-options,
+.preferences-options {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 768px) {
+    .filter-form {
+        flex-direction: column;
+        width: auto;
+    }
+
+    .closable {
+        display: block;
+        align-self: end;
+    }
+
+    .close-btn {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        color: $color-primary;
+        font-size: $size-primary;
+    }
+
+    .meal-type-options,
+    .preferences-options {
+        padding-bottom: 1rem;
+    }
+
+    .submit-btn {
+        @include button;
+        margin: 1rem 0;
+    }
+
+
+    
+}
+

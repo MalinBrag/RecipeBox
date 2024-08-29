@@ -1,6 +1,6 @@
 import { Component, OnInit, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DeviceService } from '../../services/device.service';
+//import { DeviceService } from '../../services/device.service';
 import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
@@ -16,9 +16,9 @@ import { CommonModule, NgIf } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   title = "Malin's Recipe Box";
-  isMobile = computed(() => this.deviceService.isMobile());
+ // isMobile = computed(() => this.deviceService.isMobile());
 
-  constructor(private deviceService: DeviceService) {}
+ // constructor(private deviceService: DeviceService) {}
 
   ngOnInit(): void {
   

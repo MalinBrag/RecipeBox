@@ -1,38 +1,29 @@
-@use "../../../variables";
-@import "../../../styles.scss";
+@use "../../../assets/styles/variables";
+@import "../../../assets/styles/styles.scss";
+@import "../../../assets/styles/mixins.scss";
 
-.filter-section {
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-    margin: 0 1rem 1rem 1rem;
-    font-family: $font-tertiary;
+.filter-container {
+  display: grid;
 }
 
-.meal-type,
-.preferences {
-    padding-right: 3rem;
+.desktop-filter {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.meal-type-options,
-.preferences-options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.filter-btn {
+    @include button;
 
-    label {
-        display: flex;
-        justify-content: space-between;
-        cursor: pointer;
-        font-size: $size-tertiary;
+    i {
+        margin-right: 0.5rem;
     }
-}
+  }
+
+ 
 
 
 
 
 
-h2 {
-    text-transform: uppercase;
-    font-size: $size-secondary;
-}
+
