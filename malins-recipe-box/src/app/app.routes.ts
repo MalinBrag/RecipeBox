@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterFormComponent } from './components/filter-form/filter-form.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
 
 
 export const routes: Routes = [
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'filter', component: FilterComponent },
     { path: 'filter-form', component: FilterFormComponent },
     { path: 'footer', component: FooterComponent },
+    { path: 'recipe-list', component: RecipeListComponent }
 
 ];

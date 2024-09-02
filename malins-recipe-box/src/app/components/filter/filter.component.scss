@@ -4,21 +4,20 @@
 
 .filter-container {
   display: grid;
-}
-
-.desktop-filter {
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: 100%;
 }
 
 .filter-btn {
-    @include button;
+  @include button;
 
-    i {
-        margin-right: 0.5rem;
-    }
+  i {
+    margin-right: 0.5rem;
   }
+
+  &:hover {
+    background-color: darken($color-tertiary, 10%);
+  }
+}
 
  
 

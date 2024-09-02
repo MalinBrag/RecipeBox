@@ -1,0 +1,14 @@
+@use "../styles/variables";
+
+@mixin button {
+    padding: 10px 20px;
+    background-color: $color-tertiary;
+    color: $color-secondary;
+    font-family: $font-secondary;
+    font-size: $size-tertiary;
+    border: none;
+    border-radius: 4px;
+    margin: 1rem 4rem;
+    padding: 0.5rem 3rem;
+    cursor: pointer;   
+}

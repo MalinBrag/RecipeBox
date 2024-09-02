@@ -3,11 +3,7 @@
 @import "../../../assets/styles/mixins.scss";
 
 .footer {
+    width: 100%;
     min-height: 10rem;
     background-color: $color-quaternary;
-}
-
-section {
-    display: flex;
-    width: 100%;
 }

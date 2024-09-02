@@ -4,16 +4,41 @@
 
 .filter-form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: 50%;
     margin: 0 1rem 1rem 1rem;
     font-family: $font-tertiary;
     font-size: $size-tertiary;
+ 
+    @media (max-width: 768px) {
+        flex-direction: column;
+        width: auto;
+    }
+}
+
+.submit-btn {
+    @include button;
+    margin: 2rem 0.5rem 0.5rem 0.5rem;
+    order: 1;
+    width: 50%;
+
+    &:hover {
+        background-color: darken($color-tertiary, 10%);
+    }
+
+    @media (max-width: 768px) {
+        margin: 1rem 0;
+    }
 }
 
 .closable {
     display: none;
+    
+    @media (max-width: 768px) {
+        display: block;
+        align-self: end;
+    }
 }
 
 h1 {
@@ -22,26 +47,26 @@ h1 {
     padding-right: 3rem;
 }
 
+.filter-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
 .meal-type-options,
 .preferences-options {
+    flex: 1 1 100%;
     display: flex;
     flex-direction: column;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+        padding-bottom: 1rem;
+    }
 }
 
-
-
 @media (max-width: 768px) {
-    .filter-form {
-        flex-direction: column;
-        width: auto;
-    }
-
-    .closable {
-        display: block;
-        align-self: end;
-    }
-
     .close-btn {
         border: none;
         background-color: transparent;
@@ -49,18 +74,5 @@ h1 {
         color: $color-primary;
         font-size: $size-primary;
     }
-
-    .meal-type-options,
-    .preferences-options {
-        padding-bottom: 1rem;
-    }
-
-    .submit-btn {
-        @include button;
-        margin: 1rem 0;
-    }
-
-
-    
 }
 

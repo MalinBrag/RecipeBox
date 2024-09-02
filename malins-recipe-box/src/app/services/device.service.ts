@@ -1,4 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject, signal } from '@angular/core';
+/*import { Injectable, PLATFORM_ID, Inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { fromEvent, debounceTime } from 'rxjs';
 
@@ -37,4 +37,4 @@ export class DeviceService {
     }
   }
 
-}
+}*/

@@ -1,0 +1,28 @@
+<main class="recipe-list-container">
+    <div class="recipe-list">
+        <div class="recipe-display" *ngFor="let recipe of displayedRecipes">
+            <div class="recipe-card">
+                <img [src]="recipe.image" alt="{{recipe.title}}" class="recipe-image"/>
+                <div class="recipe-title-overlay">
+                    <h2>{{ recipe.title }}</h2>
+                </div>
+            </div>
+            <div class="recipe-info">
+                <div class="recipe-details">
+                    <span class="recipe-time">Cooking Time: 30 min</span>
+                    <span class="recipe-difficulty">Difficulty: Medium</span>
+                </div>
+                <button class="favorite-btn">
+                    <i class="bi bi-heart"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="pagination-btns">
+        <button class="load-more-btn" (click)="loadRecipes()">Load more</button>
+        <button class="scroll-to-top-btn" (click)="scrollToTop()">
+            <i class="bi bi-arrow-up-circle"></i>
+        </button>
+    </div>
+</main>
+  
