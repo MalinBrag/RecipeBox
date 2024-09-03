@@ -58,6 +58,7 @@
   h1 {
     @include h1-style;
     color: $color-secondary;
+    font-size: 3rem;
   }
 
   @media (max-width: 768px) {

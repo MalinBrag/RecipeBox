@@ -34,11 +34,11 @@
 }
 
 @mixin subheader-style {
-    @include heading-style($font-secondary, $h1-size, $color-quaternary, $h2-size-mobile);
+    @include heading-style($font-secondary, $h1-size, $color-quaternary, $h1-size-mobile);
 }
 
 @mixin link-style {
-    @include heading-style($font-secondary, $h2-size, $color-primary, $h2-size-mobile);
+    @include heading-style($font-secondary, $h3-size, $color-primary, $h2-size-mobile);
 }
 
 

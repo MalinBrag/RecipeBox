@@ -1,8 +1,9 @@
 <main class="recipe-container">
-    <div class="recipe-title-container">
+    <div class="recipe-header-section">
         <h1 class="recipe-title">{{ recipe?.title }}</h1>
+        <app-recipe-info></app-recipe-info>
     </div>
-    <app-recipe-info></app-recipe-info>
+   
     <img [src]="recipe?.image" alt="{{ recipe?.title }}" class="recipe-image"/>
     <div class="ingredients-container">
         <h3 class="ingredients-title">Ingredients</h3>
@@ -17,8 +18,7 @@
 
     <div class="share">
         <button class="share-btn" (click)="shareRecipe()" title="Share this">
-            <p>Share</p>
-            <i class="bi bi-share"></i>
+            <i class="bi bi-box-arrow-up-right"></i>
         </button>
     </div>
 

@@ -35,6 +35,7 @@
 
 .title-link {
     @include h1-style;
+    font-size: 1.8rem;
     text-decoration: none;
 
     @media (max-width: 768px) {

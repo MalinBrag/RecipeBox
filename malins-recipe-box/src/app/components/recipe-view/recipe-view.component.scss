@@ -9,12 +9,25 @@
   width: 100%;
 }
 
-.recipe-title-container {
+.recipe-header-section {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 100%;
-    margin-bottom: 0;
-    @include h1-style;
+    
+    .recipe-title {
+        @include h1-style;
+        font-size: 3rem;
+
+        @media (max-width: 768px) {
+            font-size: 2.2rem;
+        }
+    }
+    
+    app-recipe-info {
+        width: 75%;
+    }
 }
 
 .recipe-image {
@@ -34,8 +47,7 @@
 .instructions-title {
     @include subheader-style;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    
+    margin: 0;
 }
 
 .ingredients-list {
@@ -45,6 +57,7 @@
 
     li {
         margin-bottom: 0.3rem;
+        font-style: italic;
     }
 }
 
@@ -69,21 +82,19 @@
 }
 
 .share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.9rem;
     border: none;
-    cursor: pointer;
-
-    p {
-        @include link-style;
-        text-transform: uppercase;
-        font-weight: 700;
-        color: $color-tertiary;
-    }
+    font-size: 1.8rem;
+    transition: transform 0.1s ease, color 0.1s ease; 
 
     i {
-        font-size: 1.1rem;
-        font-weight: 700;
+        cursor: pointer; 
+    
+        &:hover {
+            color: lighten($color: $color-primary, $amount: 30%); 
+        }
+  
+        &:active {
+            transform: scale(0.9); 
+        }
     }
 }
