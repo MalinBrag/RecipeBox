@@ -46,7 +46,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   text-align: center;
   padding: 10px;
@@ -55,54 +55,16 @@
   align-items: center;
   width: 80%; 
 
+  h1 {
+    @include h1-style;
+    color: $color-secondary;
+  }
+
   @media (max-width: 768px) {
     top: 40%;
-  }
-}
 
-.recipe-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0.5rem 0;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.recipe-details {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  flex-grow: 1;
-    
-  span {
-    padding-left: 0.8rem;
-  }
-
-  @media (max-width: 768px) {
-    font-size: $size-tertiary;
-  }
-}
-
-.favorite-btn {
-  display: flex;
-  flex-grow: 2;
-  justify-content: flex-end;
-  background: none;
-  border: none;
-  padding-right: 1rem;
-  font-size: 1.5rem;
-  transition: transform 0.1s ease, color 0.1s ease; 
-
-  i {
-    cursor: pointer; 
-  
-    &:hover {
-      color: #ff6347; 
-    }
-
-    &:active {
-      transform: scale(0.9); 
+    h1 {
+      font-size: 1.5rem;
     }
   }
 }
@@ -117,7 +79,7 @@
 .load-more-btn {
   margin: 2rem 0;
   padding: 0.5rem 1rem;
-  font-size: $size-secondary;
+  font-size: $h2-size;
   @include button;
   cursor: pointer;
 
@@ -147,7 +109,7 @@
   }
 
   i {
-    font-size: $size-secondary;
+    font-size: $h2-size;
   }
 }
   

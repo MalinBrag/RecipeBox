@@ -1,7 +1,7 @@
 {
     "recipes": [
       {
-        "id": 1,
+        "id": "1",
         "title": "Vegan Pancakes",
         "mealType": "breakfast",
         "preferences": ["vegan", "gluten-free"],
@@ -11,7 +11,7 @@
         "instructions": "Mix the dry ingredients, then stir in the wet ingredients until combined. Cook on a hot skillet."
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Vegetarian Omelette",
         "mealType": "breakfast",
         "preferences": ["vegetarian", "gluten-free"],
@@ -21,7 +21,7 @@
         "instructions": "Whisk the eggs, pour into a hot pan, add the vegetables, and fold the omelette."
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Avocado Toast",
         "mealType": "breakfast",
         "preferences": ["vegetarian", "vegan"],
@@ -31,7 +31,7 @@
         "instructions": "Toast the bread, mash the avocado, and spread it on the toast. Drizzle with olive oil and season."
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Quinoa Salad",
         "mealType": "lunch",
         "preferences": ["vegan", "gluten-free"],
@@ -41,7 +41,7 @@
         "instructions": "Mix all the ingredients together in a large bowl and serve chilled."
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Grilled Chicken Salad",
         "mealType": "lunch",
         "preferences": ["gluten-free"],
@@ -51,7 +51,7 @@
         "instructions": "Grill the chicken until cooked through, slice it, and add it to the salad with dressing."
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "Vegan Buddha Bowl",
         "mealType": "lunch",
         "preferences": ["vegan", "gluten-free"],
@@ -61,7 +61,7 @@
         "instructions": "Assemble all the ingredients in a bowl, drizzle with tahini, and serve."
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Vegetarian Tacos",
         "mealType": "dinner",
         "preferences": ["vegetarian"],
@@ -71,7 +71,7 @@
         "instructions": "Warm the tortillas, fill them with beans and veggies, and top with salsa."
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Gluten-Free Pasta",
         "mealType": "dinner",
         "preferences": ["gluten-free", "vegetarian"],
@@ -81,7 +81,7 @@
         "instructions": "Cook the pasta, mix with the sauce and cream, and top with parmesan."
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "Vegan Stir Fry",
         "mealType": "dinner",
         "preferences": ["vegan", "gluten-free"],
@@ -91,7 +91,7 @@
         "instructions": "Stir fry the tofu and vegetables in soy sauce until cooked through."
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "Vegetarian Pizza",
         "mealType": "dinner",
         "preferences": ["vegetarian"],
@@ -101,7 +101,7 @@
         "instructions": "Assemble the pizza and bake at 400°F for 15 minutes."
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "Vegan Pancakes",
         "mealType": "breakfast",
         "preferences": ["vegan", "gluten-free"],
@@ -111,7 +111,7 @@
         "instructions": "Mix the dry ingredients, then stir in the wet ingredients until combined. Cook on a hot skillet."
       },
       {
-        "id": 12,
+        "id": "12",
         "title": "Vegetarian Omelette",
         "mealType": "breakfast",
         "preferences": ["vegetarian", "gluten-free"],
@@ -121,7 +121,7 @@
         "instructions": "Whisk the eggs, pour into a hot pan, add the vegetables, and fold the omelette."
       },
       {
-        "id": 13,
+        "id": "13",
         "title": "Avocado Toast",
         "mealType": "breakfast",
         "preferences": ["vegetarian", "vegan"],
@@ -131,17 +131,17 @@
         "instructions": "Toast the bread, mash the avocado, and spread it on the toast. Drizzle with olive oil and season."
       },
       {
-        "id": 14,
+        "id": "14",
         "title": "Quinoa Salad",
         "mealType": "lunch",
         "preferences": ["vegan", "gluten-free"],
         "image": "assets/images/dinner.jpg",
         "description": "A healthy quinoa salad with fresh vegetables and lemon dressing.",
-        "ingredients": ["1 cup cooked quinoa", "1/2 cucumber", "1/2 bell pepper", "1/4 cup lemon juice"],
-        "instructions": "Mix all the ingredients together in a large bowl and serve chilled."
+        "ingredients": ["1 cup cooked quinoa", "1/2 cucumber", "1/2 bell pepper", "1/4 cup lemon juice", "1 cup cooked quinoa", "1/2 cucumber", "1/2 bell pepper", "1/4 cup lemon juice"],
+        "instructions": "Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled.Mix all the ingredients together in a large bowl and serve chilled."
       },
       {
-        "id": 15,
+        "id": "15",
         "title": "Grilled Chicken Salad",
         "mealType": "lunch",
         "preferences": ["gluten-free"],
@@ -151,7 +151,7 @@
         "instructions": "Grill the chicken until cooked through, slice it, and add it to the salad with dressing."
       },
       {
-        "id": 16,
+        "id": "16",
         "title": "Vegan Buddha Bowl",
         "mealType": "lunch",
         "preferences": ["vegan", "gluten-free"],
@@ -161,7 +161,7 @@
         "instructions": "Assemble all the ingredients in a bowl, drizzle with tahini, and serve."
       },
       {
-        "id": 17,
+        "id": "17",
         "title": "Vegetarian Tacos",
         "mealType": "dinner",
         "preferences": ["vegetarian"],
@@ -171,7 +171,7 @@
         "instructions": "Warm the tortillas, fill them with beans and veggies, and top with salsa."
       },
       {
-        "id": 18,
+        "id": "18",
         "title": "Gluten-Free Pasta",
         "mealType": "dinner",
         "preferences": ["gluten-free", "vegetarian"],
@@ -181,7 +181,7 @@
         "instructions": "Cook the pasta, mix with the sauce and cream, and top with parmesan."
       },
       {
-        "id": 19,
+        "id": "19",
         "title": "Vegan Stir Fry",
         "mealType": "dinner",
         "preferences": ["vegan", "gluten-free"],
@@ -191,7 +191,7 @@
         "instructions": "Stir fry the tofu and vegetables in soy sauce until cooked through."
       },
       {
-        "id": 20,
+        "id": "20",
         "title": "Vegetarian Pizza",
         "mealType": "dinner",
         "preferences": ["vegetarian"],

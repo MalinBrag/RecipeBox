@@ -3,13 +3,12 @@
 @import "../../../assets/styles/mixins.scss";
 
 .filter-form {
+    //@include h2-style;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     width: 50%;
     margin: 0 1rem 1rem 1rem;
-    font-family: $font-tertiary;
-    font-size: $size-tertiary;
  
     @media (max-width: 768px) {
         flex-direction: column;
@@ -41,9 +40,9 @@
     }
 }
 
-h1 {
+h2 {
+    @include h2-style;
     text-transform: uppercase;
-    font-size: $size-secondary;
     padding-right: 3rem;
 }
 
@@ -72,7 +71,7 @@ h1 {
         background-color: transparent;
         cursor: pointer;
         color: $color-primary;
-        font-size: $size-primary;
+        font-size: $h1-size;
     }
 }
 

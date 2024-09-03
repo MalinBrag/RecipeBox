@@ -5,10 +5,52 @@
     background-color: $color-tertiary;
     color: $color-secondary;
     font-family: $font-secondary;
-    font-size: $size-tertiary;
+    font-size: $h3-size;
     border: none;
     border-radius: 4px;
     margin: 1rem 4rem;
     padding: 0.5rem 3rem;
     cursor: pointer;   
 }
+
+@mixin heading-style($family, $size, $color, $mobile-font-size: null) {
+    font-family: $family;
+    font-size: $size;
+    color: $color;
+
+    @if $mobile-font-size != null {
+        @media (max-width: 768px) {
+            font-size: $mobile-font-size;
+        }
+    }
+}
+
+@mixin h1-style {
+    @include heading-style($font-primary, $h1-size, $color-primary, $h1-size-mobile);
+}
+
+@mixin h2-style {
+    @include heading-style($font-tertiary, $h2-size, $color-primary, $h2-size-mobile);
+}
+
+@mixin subheader-style {
+    @include heading-style($font-secondary, $h1-size, $color-quaternary, $h2-size-mobile);
+}
+
+@mixin link-style {
+    @include heading-style($font-secondary, $h2-size, $color-primary, $h2-size-mobile);
+}
+
+
+
+@mixin sub-title-1 {
+    //@include heading-style($font-secondary, $h2-size, $color-tertiary);
+}
+
+
+
+
+
+
+
+

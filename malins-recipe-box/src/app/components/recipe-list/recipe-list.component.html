@@ -1,21 +1,14 @@
 <main class="recipe-list-container">
     <div class="recipe-list">
         <div class="recipe-display" *ngFor="let recipe of displayedRecipes">
-            <div class="recipe-card">
+            <a [routerLink]="['/recipe-view', recipe.id]">
                 <img [src]="recipe.image" alt="{{recipe.title}}" class="recipe-image"/>
-                <div class="recipe-title-overlay">
-                    <h2>{{ recipe.title }}</h2>
-                </div>
+            </a>
+            <div class="recipe-title-overlay">
+                <h1>{{ recipe.title }}</h1>
             </div>
-            <div class="recipe-info">
-                <div class="recipe-details">
-                    <span class="recipe-time">Cooking Time: 30 min</span>
-                    <span class="recipe-difficulty">Difficulty: Medium</span>
-                </div>
-                <button class="favorite-btn">
-                    <i class="bi bi-heart"></i>
-                </button>
-            </div>
+            <app-recipe-info></app-recipe-info>
+            <hr>
         </div>
     </div>
     <div class="pagination-btns">

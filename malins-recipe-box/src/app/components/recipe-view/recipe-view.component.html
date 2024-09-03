@@ -1,0 +1,28 @@
+<main class="recipe-container">
+    <div class="recipe-title-container">
+        <h1 class="recipe-title">{{ recipe?.title }}</h1>
+    </div>
+    <app-recipe-info></app-recipe-info>
+    <img [src]="recipe?.image" alt="{{ recipe?.title }}" class="recipe-image"/>
+    <div class="ingredients-container">
+        <h3 class="ingredients-title">Ingredients</h3>
+        <ul class="ingredients-list">
+            <li *ngFor="let ingredient of recipe?.ingredients">{{ ingredient }}</li>
+        </ul>
+    </div>
+    <div class="instructions-container">
+        <h3 class="instructions-title">Instructions</h3>
+        <div class="instructions">{{ recipe?.instructions }}</div>
+    </div>
+
+    <div class="share">
+        <button class="share-btn" (click)="shareRecipe()" title="Share this">
+            <p>Share</p>
+            <i class="bi bi-share"></i>
+        </button>
+    </div>
+
+
+
+
+</main>

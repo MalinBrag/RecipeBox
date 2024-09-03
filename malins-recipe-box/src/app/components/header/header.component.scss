@@ -1,5 +1,6 @@
 @use "../../../assets/styles/variables";
 @import "../../../assets/styles/styles.scss";
+@import "../../../assets/styles/mixins.scss";
 
 .main-header {
     display: flex;
@@ -33,13 +34,11 @@
 }
 
 .title-link {
-    font-family: $font-primary;
-    font-size: $size-primary;
+    @include h1-style;
     text-decoration: none;
-    color: $color-primary;
 
     @media (max-width: 768px) {
-        font-size: $size-secondary;
+        @include h1-style;
         flex-grow: 1;
         text-align: center;
         margin: 0;
@@ -76,10 +75,8 @@
 }
 
 .nav-link {
-    font-family: $font-secondary;
-    font-size: $size-secondary;
+    @include link-style;
     text-decoration: none;
-    color: $color-primary;
     margin-right: 1rem;
 }
 
@@ -112,12 +109,12 @@ button.search {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    font-size: $size-secondary;
+    font-size: $h2-size;
 
     @media (max-width: 768px) {
         background-color: transparent;
         border: none;
         cursor: pointer;
-        font-size: $size-secondary;
+        font-size: $h2-size;
     }
 }

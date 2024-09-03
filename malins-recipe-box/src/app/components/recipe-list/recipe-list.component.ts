@@ -1,25 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { NgForOf } from '@angular/common';
-import { Recipe } from '../../models/recipe.model';
+import { RecipeModel } from '../../models/recipe.model';
 import { RecipeApiService } from '../../services/recipe-api.service';
+import { RecipeInfoComponent } from '../shared/recipe-info/recipe-info.component';  
 
 @Component({
   selector: 'app-recipe-list',
   standalone: true,
   imports: [
     RouterOutlet,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    RecipeInfoComponent
   ],
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit {
-  recipes: Recipe[] = [];
+  recipes: RecipeModel[] = [];
   recipesPerPage: number = 10;
   currentPage: number = 1;
   allRecipesLoaded: boolean = false;
-  displayedRecipes: Recipe[] = [];
+  displayedRecipes: RecipeModel[] = [];
 
   constructor(private recipeService: RecipeApiService) { }
 
@@ -30,7 +33,7 @@ export class RecipeListComponent implements OnInit {
   loadRecipes(): void {
     const offset = (this.currentPage - 1) * this.recipesPerPage;
     this.recipeService.getRecipes(this.recipesPerPage, offset).subscribe({
-      next: (data: Recipe[]) => {
+      next: (data: RecipeModel[]) => {
           this.displayedRecipes = this.displayedRecipes.concat(data);
           this.currentPage++;
       }

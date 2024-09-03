@@ -1,0 +1,50 @@
+@use "../../../../assets/styles/variables";
+@import "../../../../assets/styles/styles.scss";
+@import "../../../../assets/styles/mixins.scss";
+
+.recipe-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 0.5rem 0;
+}
+
+.recipe-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-grow: 1;
+      
+    span {
+      padding-left: 0.8rem;
+    }
+  
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+}
+  
+.favorite-btn {
+    display: flex;
+    flex-grow: 2;
+    justify-content: flex-end;
+    background: none;
+    border: none;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    transition: transform 0.1s ease, color 0.1s ease; 
+  
+    i {
+        cursor: pointer; 
+    
+        &:hover {
+            color: #ff6347; 
+        }
+  
+        &:active {
+            transform: scale(0.9); 
+        }
+    }
+}
