@@ -1,40 +1,32 @@
-import { Injectable, PLATFORM_ID, Inject, signal } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { fromEvent, debounceTime } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, fromEvent } from 'rxjs';
+import { debounceTime, map, startWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeviceService {
-  isMobile = signal(false);
-  private resizeListener: any;
+ 
+  private isMobileSujbect: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.checkIfMobile());
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.checkWindowSize();
-      this.listenToResize();
-    }
+  constructor() {
+    fromEvent(window, 'resize')
+    .pipe(
+      debounceTime(200),
+      map(() => this.checkIfMobile())
+    )
+    .subscribe(isMobile => {
+      this.isMobileSujbect.next(isMobile);
+    });
   }
   
 
-  private checkWindowSize(): void {  
-    this.isMobile.set(window.innerWidth <= 768);
+  private checkIfMobile(): boolean {
+    return window.innerWidth <= 768;
   }
 
-  private listenToResize(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.resizeListener = fromEvent(window, 'resize')
-      .pipe(debounceTime(200))
-      .subscribe(() => {
-        this.checkWindowSize();
-      });
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.resizeListener) {
-      this.resizeListener.unsubscribe();
-    }
+  isMobile(): Observable<boolean> {
+    return this.isMobileSujbect.asObservable();
   }
 
 }

@@ -1,0 +1,85 @@
+@use "../../../../assets/styles/variables";
+@import "../../../../assets/styles/styles.scss";
+@import "../../../../assets/styles/mixins.scss";
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 0 1rem 1rem 1rem;
+ 
+    @media (max-width: 768px) {
+        flex-direction: column;
+        width: auto;
+    }
+}
+
+.form-title {
+    margin-bottom: 1.5rem;
+
+    h2 {
+        @include profile-heading;
+        text-align: center
+    }
+}
+
+.submit-btn {
+    @include button;
+    margin: 2rem 0.5rem 0.5rem 0.5rem;
+    order: 1;
+    width: auto;
+    
+    &:hover {
+        background-color: darken($color-tertiary, 10%);
+    }
+}
+
+.mobile-submit-btn {
+    display: none;
+    @include button;
+    
+    @media (max-width: 768px) {
+        display: block;
+        margin: 1rem 0;
+    }
+}
+
+.closable {
+    display: none;
+    
+    @media (max-width: 768px) {
+        display: block;
+        align-self: end;
+    }
+}
+
+@media (max-width: 768px) {
+    .close-btn {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        color: $color-primary;
+        font-size: $h1-size;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 0.3rem 0;
+    
+    label {
+        text-transform: uppercase;
+        color: $color-tertiary;
+    }
+
+    input {
+        padding: 0.3rem;
+        border: 1px solid $color-secondary;
+        
+    }
+}
+
+

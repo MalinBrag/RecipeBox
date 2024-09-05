@@ -1,0 +1,28 @@
+@use "../../../assets/styles/variables";
+@import "../../../assets/styles/styles.scss";
+@import "../../../assets/styles/mixins.scss";
+
+.filter-container {
+  display: grid;
+  width: 100%;
+}
+
+.filter-btn {
+  @include button;
+
+  i {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    background-color: darken($color-tertiary, 10%);
+  }
+}
+
+ 
+
+
+
+
+
+

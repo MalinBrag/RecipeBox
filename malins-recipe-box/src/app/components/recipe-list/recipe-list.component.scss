@@ -1,0 +1,119 @@
+@use "../../../assets/styles/variables";
+@import "../../../assets/styles/styles.scss";
+@import "../../../assets/styles/mixins.scss";
+
+.recipe-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 3rem 0;
+}
+  
+.recipe-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.8rem;
+  width: 90%;
+  justify-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    //width: 100%;
+  }
+}
+  
+.recipe-display {
+  width: 100%;
+  position: relative;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+}
+
+.recipe-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: pointer;
+}
+
+.recipe-title-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%; 
+
+  h1 {
+    @include h1-style;
+    color: $color-secondary;
+    font-size: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    top: 40%;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.pagination-btns {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  flex: 1;
+}
+
+.load-more-btn {
+  margin: 2rem 0;
+  padding: 0.5rem 1rem;
+  font-size: $h2-size;
+  @include button;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($color-tertiary, 10%);
+  }
+}
+  
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: $color-quaternary;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($color-quaternary, 10%);
+  }
+
+  i {
+    font-size: $h2-size;
+  }
+}
+  
+  
+
+  

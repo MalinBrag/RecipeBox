@@ -1,0 +1,25 @@
+<form class="user-form" [formGroup]="userForm">
+    <div class="closable" data-closable>
+        <button class="close-btn" aria-label="Close alert" type="button" mat-button (click)="closeDialog()" data-close>
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="form-title">
+        <h2>{{ title }}</h2>
+    </div> 
+    <div class="credentials">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" formControlName="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" required>
+        </div>
+    </div>
+    <button class="mobile-submit-btn" type="button" (click)="submitForm()">Submit</button>
+</form>
