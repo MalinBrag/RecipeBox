@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
+import { HeaderComponent } from '../shared/header/header.component';
 import { FilterComponent } from '../filter/filter.component';
-import { FooterComponent } from '../footer/footer.component';
+import { FooterComponent } from '../shared/footer/footer.component';
 import { RecipeListComponent } from '../recipe-list/recipe-list.component';
 
 @Component({

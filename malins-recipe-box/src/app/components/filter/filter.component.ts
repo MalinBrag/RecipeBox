@@ -1,53 +1,41 @@
-import { Component, HostListener } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-//import { DeviceService } from '../../services/device.service';
+import { DialogService } from '../../services/dialog.service';
+import { DeviceService } from '../../services/device.service';
 import { FilterFormComponent } from '../filter-form/filter-form.component';
 
 @Component({
   selector: 'app-filter',
   standalone: true,
   imports: [
-    RouterOutlet,
     NgIf,
     FilterFormComponent,
   ],
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent {
+export class FilterComponent implements OnInit {
   isMobile: boolean = false;
   filters = {};
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    private dialogService: DialogService, 
+    private deviceService: DeviceService
+  ) {}
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.checkDeviceType();
-  }
-
-  ngOnInit() {
-    this.checkDeviceType();
-  }
-
-  checkDeviceType() {
-    this.isMobile = window.innerWidth < 768;
+  ngOnInit(): void {
+    this.deviceService.isMobile().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
   }
 
   openFilterDialog() {
-    const dialogRef = this.dialog.open(FilterFormComponent, {
-      width: '500px',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogService.openDialog(FilterFormComponent, {}).subscribe(result => {
       if (result) {
-        console.log(result)
         this.filters = result;
         this.applyFilters();
       }
-    });  
+    });
   }
 
   applyFilters(): void {

@@ -1,6 +1,6 @@
-import { Component, ViewChild, Optional, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Optional, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { MatDialogRef } from '@angular/material/dialog';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-filter-form',
@@ -18,7 +18,7 @@ export class FilterFormComponent implements AfterViewInit {
   mealTypes: MatCheckbox[] = [];
   preferences: MatCheckbox[] = [];
   
-  constructor(@Optional() public dialogRef: MatDialogRef<FilterFormComponent>) {}
+  constructor(@Optional() private dialogService: DialogService) {}
 
   ngAfterViewInit(): void {
     this.categorizeCheckboxes();
@@ -39,7 +39,7 @@ export class FilterFormComponent implements AfterViewInit {
     const selectedPreferences = this.getValues(this.preferences);
     console.log(selectedMealTypes, selectedPreferences);
 
-    this.dialogRef.close({
+    this.dialogService.closeDialog({
       selectedMealTypes,
       selectedPreferences
     });
@@ -52,7 +52,7 @@ export class FilterFormComponent implements AfterViewInit {
   }
 
   closeDialog(): void {
-    this.dialogRef.close();
+    this.dialogService.closeDialog();
   }
 
 }
