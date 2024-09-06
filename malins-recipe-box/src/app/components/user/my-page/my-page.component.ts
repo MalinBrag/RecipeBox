@@ -11,7 +11,6 @@ import { RouterLink, Router } from '@angular/router';
   styleUrls: ['./my-page.component.scss']
 })
 export class MyPageComponent implements OnInit {
-  title = "My Page";
   loggedIn: boolean = false;
   
   constructor(

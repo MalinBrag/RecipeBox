@@ -86,6 +86,7 @@ export class HeaderComponent implements OnInit {
     //skicka till backend att logga ut
     this.loggedIn = false;
     this.dropdownOpen = false;
+    this.router.navigate(['home']);
   } 
 
 
