@@ -46,7 +46,6 @@
 @mixin profile-heading {
     @include heading-style($font-tertiary, 1.5rem, $color-primary, $h2-size-mobile);
     font-style: italic;
-    font-weight: 700;
 }
 
 
