@@ -1,0 +1,45 @@
+.delete-user-container {
+    text-align: center;
+    padding: 2rem;
+  
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+  
+    p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+  
+    .delete-user-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+  
+      .btn-confirm {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: darkred;
+        }
+      }
+  
+      .btn-cancel {
+        background-color: grey;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: darkgrey;
+        }
+      }
+    }
+  }
+  

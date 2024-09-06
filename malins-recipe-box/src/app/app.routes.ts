@@ -1,15 +1,18 @@
 import { Routes } from '@angular/router';
-import { HeaderComponent } from './components/shared/header/header.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
-import { FilterComponent } from './components/filter/filter.component';
-import { FilterFormComponent } from './components/filter-form/filter-form.component';
-import { FooterComponent } from './components/shared/footer/footer.component';
-import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
-import { RecipeViewComponent } from './components/recipe-view/recipe-view.component';   
-import { RecipeInfoComponent } from './components/shared/recipe-info/recipe-info.component';
-import { RegisterComponent } from './components/register/register.component';
-import { UserFormComponent } from './components/shared/user-form/user-form.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
+import { FilterComponent } from './components/recipes/filter/filter.component';
+import { FilterFormComponent } from './components/recipes/filter-form/filter-form.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { RecipeListComponent } from './components/recipes/recipe-list/recipe-list.component';
+import { RecipeViewComponent } from './components/recipes/recipe-view/recipe-view.component';   
+import { RecipeInfoComponent } from './shared/components/recipe-info/recipe-info.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { UserFormComponent } from './shared/components/user-form/user-form.component';
+import { SignInComponent } from './components/user/sign-in/sign-in.component';
+import { MyPageComponent } from './components/user/my-page/my-page.component';
+import { EditComponent } from './components/user/edit/edit.component';
+import { DeleteComponent } from './components/user/delete/delete.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,5 +27,8 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'user-form', component: UserFormComponent },
     { path: 'sign-in', component: SignInComponent },
+    { path: 'my-page', component: MyPageComponent },
+    { path: 'edit', component: EditComponent },
+    { path: 'delete', component: DeleteComponent }
 
 ];

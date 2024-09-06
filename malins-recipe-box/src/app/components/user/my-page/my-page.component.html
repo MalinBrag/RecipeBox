@@ -1,0 +1,17 @@
+<main class="mypage-container">
+    <div class="mypage-header">
+        <div class="icon">
+            <i class="bi bi-person-fill"></i>
+        </div>
+        <div class="title">
+            <h1>Welcome!</h1>
+        </div>
+    </div>
+    <div class="mypage-content">
+        <button class="mypage-btn" [routerLink]="['/my-page']">My recipes</button>
+        <button class="mypage-btn" [routerLink]="['/edit']">Update my info</button>
+        <button class="mypage-btn" (click)="logout()">Logout</button>
+        <button class="mypage-btn" [routerLink]="['/delete']">Delete account</button>
+    </div>
+</main>
+

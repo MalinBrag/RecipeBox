@@ -1,0 +1,70 @@
+<header class="main-header">
+    <div class="title-container">
+        <a href="/" class="title-link">
+            <h1 class="main-title">{{ title }}</h1>
+        </a>
+
+        <div class="profile" *ngIf="isMobile">
+            <i class="bi bi-person-circle" aria-hidden="true" (click)="toggleDropdown()"></i>
+            <div class="dropdown-menu" *ngIf="dropdownOpen">
+
+                <a class="dropdown-item" 
+                *ngIf="!loggedIn"
+                [ngClass]="{ 'guest-item': !loggedIn }" 
+                (click)="onSignIn()">Sign in</a>
+
+                <a class="dropdown-item" 
+                *ngIf="!loggedIn"
+                [ngClass]="{ 'guest-item': !loggedIn }" 
+                (click)="onRegister()">Register</a>
+
+                <a class="dropdown-item" 
+                *ngIf="loggedIn"
+                [ngClass]="{ 'user-item': loggedIn }"
+                (click)="onMyPage()">My page</a>
+
+                <a class="dropdown-item" 
+                *ngIf="loggedIn" 
+                [ngClass]="{ 'user-item': loggedIn }"
+                (click)="logout()">Logout</a>
+
+            </div>
+        </div>
+    </div>
+
+    <nav class="header-navbar">
+        <div class="profile-functions" *ngIf="!isMobile">
+            <i class="bi bi-person-circle" aria-hidden="true"></i>
+            
+            <a class="nav-link" 
+            *ngIf="!loggedIn"
+            [ngClass]="{ 'guest-item': !loggedIn }"
+            [routerLink]="['/sign-in']" >Sign in</a>
+            
+            <a class="nav-link" 
+            *ngIf="!loggedIn"
+            [ngClass]="{ 'guest-item': !loggedIn }"
+            [routerLink]="['/register']">Register</a>
+
+            <a class="nav-link" 
+            *ngIf="loggedIn"
+            [ngClass]="{ 'user-item': loggedIn }"
+            (click)="onMyPage()">My page</a>
+
+            <a class="nav-link" 
+            *ngIf="loggedIn" 
+            [ngClass]="{ 'user-item': loggedIn }"
+            (click)="logout()">Logout</a>
+
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="search-field" placeholder="Search..." aria-label="Search">
+            <button class="search" title="Search" aria-label="Search">
+                <i class="bi bi-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<hr class="thin-line">

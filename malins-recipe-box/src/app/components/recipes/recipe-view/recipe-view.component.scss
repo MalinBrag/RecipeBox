@@ -1,0 +1,100 @@
+@use "../../../../assets/styles/variables";
+@import "../../../../assets/styles/styles.scss";
+@import "../../../../assets/styles/mixins.scss";
+
+.recipe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.recipe-header-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+    .recipe-title {
+        @include h1-style;
+        font-size: 3rem;
+
+        @media (max-width: 768px) {
+            font-size: 2.2rem;
+        }
+    }
+    
+    app-recipe-info {
+        width: 75%;
+    }
+}
+
+.recipe-image {
+    width: 75%;
+    height: auto;
+    margin: 2rem 0;
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.ingredients-container {
+    margin-bottom: 2rem;
+}
+.ingredients-title,
+.instructions-title {
+    @include subheader-style;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.ingredients-list {
+    margin-top: 0;
+    list-style-type: square;
+    padding-left: 1.5rem;
+
+    li {
+        margin-bottom: 0.3rem;
+        font-style: italic;
+    }
+}
+
+.instructions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+}
+.instructions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.share {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
+    margin-bottom: 4rem;
+}
+
+.share-btn {
+    border: none;
+    font-size: 1.8rem;
+    transition: transform 0.1s ease, color 0.1s ease; 
+
+    i {
+        cursor: pointer; 
+    
+        &:hover {
+            color: lighten($color: $color-primary, $amount: 30%); 
+        }
+  
+        &:active {
+            transform: scale(0.9); 
+        }
+    }
+}
