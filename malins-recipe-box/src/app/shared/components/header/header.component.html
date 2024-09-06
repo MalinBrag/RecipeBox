@@ -7,6 +7,7 @@
         <div class="profile" *ngIf="isMobile">
             <i class="bi bi-person-circle" aria-hidden="true" (click)="toggleDropdown()"></i>
             <div class="dropdown-menu" *ngIf="dropdownOpen">
+
                 <a class="dropdown-item" 
                 *ngIf="!loggedIn"
                 [ngClass]="{ 'guest-item': !loggedIn }" 
@@ -26,6 +27,7 @@
                 *ngIf="loggedIn" 
                 [ngClass]="{ 'user-item': loggedIn }"
                 (click)="logout()">Logout</a>
+
             </div>
         </div>
     </div>
@@ -33,8 +35,27 @@
     <nav class="header-navbar">
         <div class="profile-functions" *ngIf="!isMobile">
             <i class="bi bi-person-circle" aria-hidden="true"></i>
-            <a [routerLink]="['/sign-in']" class="nav-link">Sign in</a>
-            <a [routerLink]="['/register']" class="nav-link">Register</a>
+            
+            <a class="nav-link" 
+            *ngIf="!loggedIn"
+            [ngClass]="{ 'guest-item': !loggedIn }"
+            [routerLink]="['/sign-in']" >Sign in</a>
+            
+            <a class="nav-link" 
+            *ngIf="!loggedIn"
+            [ngClass]="{ 'guest-item': !loggedIn }"
+            [routerLink]="['/register']">Register</a>
+
+            <a class="nav-link" 
+            *ngIf="loggedIn"
+            [ngClass]="{ 'user-item': loggedIn }"
+            (click)="onMyPage()">My page</a>
+
+            <a class="nav-link" 
+            *ngIf="loggedIn" 
+            [ngClass]="{ 'user-item': loggedIn }"
+            (click)="logout()">Logout</a>
+
         </div>
 
         <div class="search-container">

@@ -11,6 +11,8 @@ import { RegisterComponent } from './components/user/register/register.component
 import { UserFormComponent } from './shared/components/user-form/user-form.component';
 import { SignInComponent } from './components/user/sign-in/sign-in.component';
 import { MyPageComponent } from './components/user/my-page/my-page.component';
+import { EditComponent } from './components/user/edit/edit.component';
+import { DeleteComponent } from './components/user/delete/delete.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -26,5 +28,7 @@ export const routes: Routes = [
     { path: 'user-form', component: UserFormComponent },
     { path: 'sign-in', component: SignInComponent },
     { path: 'my-page', component: MyPageComponent },
+    { path: 'edit', component: EditComponent },
+    { path: 'delete', component: DeleteComponent }
 
 ];

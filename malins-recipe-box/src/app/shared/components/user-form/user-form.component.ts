@@ -66,6 +66,9 @@ export class UserFormComponent implements OnInit {
         this.userApi.register(user).subscribe(response => {
           this.dialogService.closeDialog(response);
         });
+      } else if (this.userFormService.getMode() === 'edit') {
+        console.log('Updating user:', user);
+        
       }
     } else {
       alert('Please fill in all fields');

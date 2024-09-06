@@ -1,0 +1,9 @@
+<section class="delete-user-container">
+    <h2>Delete Account</h2>
+    <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+    <div class="delete-user-actions">
+      <button class="btn-confirm" (click)="deleteAccount()">Yes, Delete</button>
+      <button class="btn-cancel" [routerLink]="['/home']">Cancel</button>
+    </div>
+  </section>
+  
