@@ -29,6 +29,9 @@ export const routes: Routes = [
     { path: 'sign-in', component: SignInComponent },
     { path: 'my-page', component: MyPageComponent },
     { path: 'edit', component: EditComponent },
-    { path: 'delete', component: DeleteComponent }
+    { path: 'delete', component: DeleteComponent },
+   // { path: 'register', loadComponent: () => import('./components/user/register/register.component').then(m => m.RegisterComponent) },
+    //{ path: 'sign-in', loadComponent: () => import('./components/user/sign-in/sign-in.component').then(m => m.SignInComponent) },
+
 
 ];

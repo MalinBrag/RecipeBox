@@ -1,4 +1,4 @@
-<form class="user-form" [formGroup]="userForm">
+<form [formGroup]="form" class="user-form">
     <div class="closable" data-closable>
         <button class="close-btn" aria-label="Close alert" type="button" mat-button (click)="closeDialog()" data-close>
             <span aria-hidden="true">&times;</span>
@@ -8,18 +8,24 @@
         <h2>{{ title }}</h2>
     </div> 
     <div class="credentials">
-        <div class="form-group">
+        <div class="form-group" *ngIf="fields.includes('name')">
             <label for="name">Name</label>
-            <input type="text" id="name" formControlName="name" required>
+            <input type="text" formControlName="name" required>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="fields.includes('email')">
             <label for="email">Email</label>
             <input type="email" id="email" formControlName="email" required>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="fields.includes('password')">
             <label for="password">Password</label>
             <input type="password" id="password" formControlName="password" required>
         </div>
+       <div class="form-group" *ngIf="fields.includes('password_confirmation')">
+            <label for="password_confirmation">Confirm password</label>
+            <input type="password_confirmation" id="password_confirmation" formControlName="password_confirmation" required>
+        </div>
     </div>
-    <button class="mobile-submit-btn" type="button" (click)="submitForm()">Submit</button>
+    <div class="btn-container">
+        <button class="submit-btn" type="button" (click)="submitForm()">Submit</button>
+    </div>
 </form>

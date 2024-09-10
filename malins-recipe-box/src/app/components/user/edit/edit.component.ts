@@ -1,48 +1,67 @@
+//EJ KLAR
+
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../../../shared/models/user.model';
 import { UserFormComponent } from '../../../shared/components/user-form/user-form.component';
-import { UserApiService } from '../../../core/services/api/user-api.service';
+import { AuthService } from '../../../core/services/api/auth.service';
 import { UserFormService } from '../../../core/services/user-form.service';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
+import { User } from '../../../shared/models/user.model';
+import { FetchUserService } from '../../../core/services/fetch-user.service';
 
 @Component({
   selector: 'app-edit',
   standalone: true,
   imports: [
     UserFormComponent,
-    NgIf
+    NgIf,
   ],
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  loggedIn: boolean = true;
-  user: User = {  //mockdata
-    name: 'Malin',
-    email: 'malin@malin.se',
-    password: '123',
-  }
+  isLoggedIn: boolean = false;
+  fields = ['name', 'email', 'password', 'password_confirmation'];
+  mode: string = 'edit';
 
-  @ViewChild(UserFormComponent) userFormComponent!: UserFormComponent;
+  @ViewChild(UserFormComponent) userForm!: UserFormComponent;
 
   constructor(
-    private userApiService: UserApiService, 
+    private auth: AuthService, 
     private userFormService: UserFormService,
+    private router: Router,
+    private fetch: FetchUserService,
   ) { }
   
-  ngOnInit() {
-    //this.user = this.userFormService.getUser();
-    this.loggedIn = true;
-    this.userFormService.setMode('edit');
+  ngOnInit(): void {
+    this.auth.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+
+      if (this.isLoggedIn) {
+        this.fetch.fetchUserId();
+        this.fetch.userData$.subscribe(userData => {
+          this.populateForm(userData);
+        });
+      }
+    });
+
+    this.userFormService.setMode(this.mode);
   }
 
-
-  updateUser(user: User) {
-    //this.userApiService.updateUser(user).subscribe();
+  populateForm(userData: Partial<User>): void {
+    if (this.userForm) {
+      this.userForm.form.patchValue({
+        name: userData.name,
+        email: userData.email,
+      });
+    }
   }
 
-  onSubmit(): void {
-    this.userFormComponent.submitForm();
+  handleFormSubmit = (formData: any) => {
+    this.auth.edit(formData).subscribe(response => {
+      console.log('Response:', response);
+      this.router.navigate(['/my-page']);
+    });
   }
 
 }

@@ -1,10 +1,10 @@
 <main class="recipe-container">
     <div class="recipe-header-section">
-        <h1 class="recipe-title">{{ recipe?.title }}</h1>
+        <h1 class="recipe-title">{{ recipe.title }}</h1>
         <app-recipe-info></app-recipe-info>
     </div>
    
-    <img [src]="recipe?.image" alt="{{ recipe?.title }}" class="recipe-image"/>
+    <img [src]="recipe.image" alt="{{ recipe.title }}" class="recipe-image"/>
     <div class="ingredients-container">
         <h3 class="ingredients-title">Ingredients</h3>
         <ul class="ingredients-list">

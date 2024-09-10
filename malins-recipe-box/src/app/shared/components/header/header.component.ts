@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
 import { DeviceService } from '../../../core/services/device.service';
 import { NgIf, NgClass } from '@angular/common';
 import { DialogService } from '../../../core/services/dialog.service';
-import { UserFormComponent } from '../user-form/user-form.component';
-import { UserFormService } from '../../../core/services/user-form.service';
+import { RegisterComponent } from '../../../components/user/register/register.component';
+import { SignInComponent } from '../../../components/user/sign-in/sign-in.component';
+import { AuthService } from '../../../core/services/api/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,84 +13,79 @@ import { UserFormService } from '../../../core/services/user-form.service';
   imports: [
     NgIf,
     NgClass,
-    UserFormComponent,
-    RouterLink
+    RouterLink,
+    RegisterComponent,
+    SignInComponent,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Input() fields: string[] = [];
+  isLoggedIn: boolean = false;
   title = "Malin's Recipe Box";
   isMobile: boolean = false;
-  loggedIn: boolean = false;
   dropdownOpen: boolean = false;
 
   constructor(
     private deviceService: DeviceService, 
     private router: Router,
     private dialogService: DialogService,
-    private userFormService: UserFormService,
+    private auth: AuthService,
   ) { }
 
   ngOnInit(): void {
+    this.auth.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
+
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
     });
-
-    this.loggedIn = true;
   }
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  onSignIn() {
+  openSignIn(): void {
     if (this.isMobile) {
-      this.openUserFormDialog('sign-in');
-    } else {
-      this.router.navigate(['/sign-in']).then(() => {
-        this.dropdownOpen = false;
+      this.dialogService.openDialog(SignInComponent, { 
+        fields: ['email', 'password'] 
       });
-    }
-  }
-
-  onRegister() {
-    if (this.isMobile) {
-      this.openUserFormDialog('register');
-    } else {
-      this.router.navigate(['/register']).then(() => {
-        this.dropdownOpen = false;
-      });
-    }
-  }
-
-  onMyPage() {
-    this.router.navigate(['/my-page']).then(() => {
       this.dropdownOpen = false;
-    });
+    } else {
+      this.router.navigate(['/sign-in']);
+    }
   }
 
-  openUserFormDialog(mode: string) {
-    this.userFormService.setMode(mode);
-    this.dialogService.openDialog(UserFormComponent, { mode }).subscribe(result => {
-      if (result) {
-        console.log('Result:', result);
-        alert(`Welcome, ${result.name}!`)
-        this.loggedIn = true;
-      }
-    });
+  openRegister(): void {
+    if (this.isMobile) {
+      this.dialogService.openDialog(RegisterComponent, {
+         fields: ['name', 'email', 'password', 'password_confirmation']
+         }); 
+      this.dropdownOpen = false;
+    } else {
+      this.router.navigate(['/register']);
+    }
+  }
 
-    this.dropdownOpen = false;
-  } 
+  openMyPage() {
+    if (this.isLoggedIn) {
+      this.router.navigate(['/my-page']).then(() => {
+        this.dropdownOpen = false; // TODO KOLLA OM DROPDOWN ÄR ÖPPEN, OM INTE, SÅ BEHÖVS BARA ROUTERLINK, EJ FUNKTION
+      });
+    }
+  }
 
   logout(): void {
-    //skicka till backend att logga ut
-    this.loggedIn = false;
-    this.dropdownOpen = false;
-    this.router.navigate(['home']);
+    this.auth.logout();
+
+    if (!this.isLoggedIn) {
+      this.dropdownOpen = false;
+      this.router.navigate(['home']);
+    }
   } 
-
-
 
   
 }

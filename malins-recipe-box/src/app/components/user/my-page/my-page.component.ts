@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../../core/services/api/auth.service';
 
 @Component({
   selector: 'app-my-page',
@@ -11,25 +12,25 @@ import { RouterLink, Router } from '@angular/router';
   styleUrls: ['./my-page.component.scss']
 })
 export class MyPageComponent implements OnInit {
-  loggedIn: boolean = false;
+  isLoggedIn: boolean = false;
   
   constructor(
     private router: Router,
+    private auth: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.loggedIn = true;
-
+    this.auth.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 
   logout(): void {
-    //skicka till backend att logga ut
-    this.loggedIn = false;
-    this.router.navigate(['home']);
+    this.auth.logout();
+    if (!this.isLoggedIn) {
+      this.router.navigate(['home']);
+    }
   }
-
-
-
 
 
 

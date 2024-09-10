@@ -11,9 +11,11 @@ export class DialogService {
   constructor(private dialog: MatDialog) { }
 
   openDialog(component: any, data?: any): Observable<any> {
-    const dialogRef = this.dialog.open(component, {
-      data: data,
-    });
+    const dialogRef = this.dialog.open(component);
+
+    if (data?.fields) {
+      (dialogRef.componentInstance as any).fields = data.fields;
+    }
 
     return dialogRef.afterClosed();
   }

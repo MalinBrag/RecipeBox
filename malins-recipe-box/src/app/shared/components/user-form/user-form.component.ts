@@ -1,51 +1,62 @@
-import { Component, Optional, Inject, OnInit } from '@angular/core';
+import { Component, Optional, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DialogService } from '../../../core/services/dialog.service';
-import { User } from '../../../shared/models/user.model';
-import { UserApiService } from '../../../core/services/api/user-api.service';
-import { CommonModule } from '@angular/common';
 import { UserFormService } from '../../../core/services/user-form.service';
-
+import { NgIf, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    NgIf,
+    ReactiveFormsModule,
   ],
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
+  @Input() fields: string[] = [];
+  @Output() onSubmit = new EventEmitter<any>();
   title: string = '';
-  userForm!: FormGroup;
+  form!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userApi: UserApiService,
     @Optional() private dialogService: DialogService,
     private userFormService: UserFormService,
   ) {}
 
-  ngOnInit(): void {
-    this.userForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
-
-    this.setTitle(this.userFormService.getMode());
+  setTitle(mode: string): void {
+    switch (mode) {
+      case 'sign-in':
+        this.title = 'Sign In';
+        break;
+      case 'register':
+        this.title = 'Register';
+        break;
+      case 'edit':
+        this.title = 'Edit Profile';
+        break;
+      default:
+        this.title = 'User Form';
+        break;
+    }
   }
 
-  setTitle(mode: string): void {
-    if (mode === 'sign-in') {
-      this.title = 'Sign in';
-    } else if (mode === 'register') {
-      this.title = 'Register as user';
-    } else if (mode === 'edit') {
-      this.title = 'Edit profile';
-    }
+  ngOnInit(): void {
+    const mode = this.userFormService.getMode();
+    this.setTitle(mode);
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+    const formControls: { [key: string]: any } = {};
+    this.fields.forEach(field => {
+      formControls[field] = ['', Validators.required];
+    });
+
+    this.form = this.formBuilder.group(formControls);
   }
 
   closeDialog(): void {
@@ -53,26 +64,10 @@ export class UserFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.userForm.valid) {
-      const user: User = this.userForm.value as User;
-
-      if (this.userFormService.getMode() === 'sign-in') {
-        console.log('Signing in user:', user);
-        this.userApi.signIn(user).subscribe(response => {
-          this.dialogService.closeDialog(response);
-        });
-      } else if (this.userFormService.getMode() === 'register') {
-        console.log('Registering user:', user); 
-        this.userApi.register(user).subscribe(response => {
-          this.dialogService.closeDialog(response);
-        });
-      } else if (this.userFormService.getMode() === 'edit') {
-        console.log('Updating user:', user);
-        
-      }
-    } else {
-      alert('Please fill in all fields');
+    if (this.form.valid) {
+      this.onSubmit.emit(this.form.value);
     }
   }
+
 
 }
