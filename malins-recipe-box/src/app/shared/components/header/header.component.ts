@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
   openSignIn(): void {
     if (this.isMobile) {
       this.dialogService.openDialog(SignInComponent, { 
-        fields: ['email', 'password'] 
+        fields: ['email', 'password'],
       });
       this.dropdownOpen = false;
     } else {

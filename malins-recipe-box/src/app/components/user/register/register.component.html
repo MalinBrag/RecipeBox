@@ -1,7 +1,7 @@
 <section class="register-container">
     <div *ngIf="!isMobile">
         <div class="desktop-register">
-            <app-user-form [fields]="fields">
+            <app-user-form [fields]="fields" (onSubmit)="handleFormSubmit($event)">
             </app-user-form>
         </div>
     </div>

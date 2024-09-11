@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
- * @method \Illuminate\Database\Eloquent\Relations\HasMany tokens()
+ * @method \Illuminate\Database\Eloquent\Relations\MorphMany tokens()
  */
 
 class User extends Authenticatable

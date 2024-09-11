@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="user-form">
     <div class="closable" data-closable>
-        <button class="close-btn" aria-label="Close alert" type="button" mat-button (click)="closeDialog()" data-close>
+        <button class="close-btn" aria-label="Close alert" type="button" mat-button (click)="cancelDialog()" data-close>
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -10,7 +10,7 @@
     <div class="credentials">
         <div class="form-group" *ngIf="fields.includes('name')">
             <label for="name">Name</label>
-            <input type="text" formControlName="name" required>
+            <input type="text" id="name" formControlName="name" required>
         </div>
         <div class="form-group" *ngIf="fields.includes('email')">
             <label for="email">Email</label>

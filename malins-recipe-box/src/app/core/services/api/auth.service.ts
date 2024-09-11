@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap, BehaviorSubject, of } from 'rxjs';
 import { LoginData } from '../../../shared/models/login-data.model';
 import { LoginResponse } from '../../../shared/models/login-response.model';
 import { environment } from '../../../../environment/environment';
 import { User } from '../../../shared/models/user.model';
-import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +15,6 @@ export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
-
- /* private HttpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.developerToken}`
-    })
-  };*/
 
   constructor(private http: HttpClient) { 
     this.checkLoginStatus();
@@ -36,62 +28,67 @@ export class AuthService {
   getToken(): string | null {
     return sessionStorage.getItem('token');
   }
+
+  setUserUserId(userId: string): void {
+    sessionStorage.setItem('userId', userId);
+  }
+
+  getUserId(): string {
+    return sessionStorage.getItem('userId')!;
+  }
   
   register(user: User): Observable<any> {
     return this.http.post(`${this.url}/register`, user).pipe(
       tap((response: any) => {
+        console.log('register:', response);
         const token = response.token;
+        const userId = response.userId;
+
         this.setToken(token);
+        this.setUserUserId(userId);
       })
     );
   }
 
   login(data: LoginData): Observable<any> {
-    return this.http.post(`${this.url}/login`, data,
-      { headers: this.getHeaders() }
-    ).pipe(
+    return this.http.post(`${this.url}/login`, data).pipe(
       tap((response: any) => {
         const token = response.token;
+        const userId = response.userId;
+
         this.setToken(token);
+        this.setUserUserId(userId);
       })
-    )
-  }
-
-  logout(): void {
-    sessionStorage.removeItem('token');
-    this.isLoggedInSubject.next(false);
-    sessionStorage.clear();
-  }
-
-  getUser(id: string): Observable<any> {
-    return this.http.get<User>(`${this.url}/getuser/${id}`, 
-      { headers: this.getHeaders() }
     );
   }
 
-  edit(id: string): Observable<User> {
-    return this.http.put(`${this.url}/edit/${id}`, 
-      { headers: this.getHeaders() }
+  logout(): void {
+    this.http.post(`${this.url}/logout`, {}).pipe(
+      tap((response: any) => { 
+        sessionStorage.removeItem('token');
+        this.isLoggedInSubject.next(false);
+        sessionStorage.clear();
+      })
+    ). subscribe(
+      (response) => {
+        //MÅSTE GÖRA NÅGOT HÄR ANNARS FUNKAR DET INTE
+        console.log('logout:', response);
+      }
+    );
+  }
+
+  getUser(id: string): Observable<User> {
+    return this.http.get<User>(`${this.url}/getuser/${id}`, 
+    );
+  }
+
+  edit(id: string, userData: User): Observable<User> {
+    return this.http.put(`${this.url}/edit/${id}`, userData
     );
   }
 
   delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.url}/delete/${id}`, 
-      { headers: this.getHeaders() }
-    );
-  }
-
-  getHeaders(): HttpHeaders {
-    const token = this.getToken();
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token ? token : this.developerToken}`
-    });
-  }
-
-  getProtectedResource(): Observable<any> {
-    return this.http.get(`${this.url}/protected-route`,
-      { headers: this.getHeaders() }
     );
   }
 
@@ -102,16 +99,6 @@ export class AuthService {
 
   isUserLoggedIn(): boolean {
     return this.isLoggedInSubject.getValue();
-  }
-
-  getUserIdFromToken(): string | null{
-    const token = this.getToken();
-    if (token) {
-      const decoded: any = jwtDecode(token);
-      decoded.userId = decoded.sub;
-      return decoded.userId;
-    }
-    return null;
   }
 
 

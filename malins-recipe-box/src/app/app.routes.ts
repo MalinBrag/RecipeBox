@@ -14,6 +14,8 @@ import { MyPageComponent } from './components/user/my-page/my-page.component';
 import { EditComponent } from './components/user/edit/edit.component';
 import { DeleteComponent } from './components/user/delete/delete.component';
 
+import { authGuard } from './core/guards/auth.guard';
+
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
@@ -27,11 +29,8 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'user-form', component: UserFormComponent },
     { path: 'sign-in', component: SignInComponent },
-    { path: 'my-page', component: MyPageComponent },
-    { path: 'edit', component: EditComponent },
-    { path: 'delete', component: DeleteComponent },
-   // { path: 'register', loadComponent: () => import('./components/user/register/register.component').then(m => m.RegisterComponent) },
-    //{ path: 'sign-in', loadComponent: () => import('./components/user/sign-in/sign-in.component').then(m => m.SignInComponent) },
-
-
+    { path: 'my-page', component: MyPageComponent, canActivate: [authGuard] },
+    { path: 'edit', component: EditComponent, canActivate: [authGuard] },
+    { path: 'delete', component: DeleteComponent, canActivate: [authGuard] },
+   
 ];

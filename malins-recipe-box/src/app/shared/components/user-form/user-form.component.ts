@@ -1,5 +1,5 @@
-import { Component, Optional, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, Optional, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl } from '@angular/forms';
 import { DialogService } from '../../../core/services/dialog.service';
 import { UserFormService } from '../../../core/services/user-form.service';
 import { NgIf, CommonModule } from '@angular/common';
@@ -57,15 +57,34 @@ export class UserFormComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group(formControls);
+
+    if (this.fields.includes('password') && this.fields.includes('password_confirmation')) {
+      this.form.setValidators(this.passwordMatchValidator());
+    }
   }
 
-  closeDialog(): void {
-    this.dialogService.closeDialog();
+  passwordMatchValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const password = control.get('password');
+      const confirmPassword = control.get('password_confirmation');
+      if (password && confirmPassword && password.value !== confirmPassword.value) {
+        return { 'passwordMismatch': true };
+      }
+      return null;
+    };
+  }
+
+  cancelDialog(): void {
+    this.dialogService.cancelDialog();
   }
 
   submitForm(): void {
     if (this.form.valid) {
       this.onSubmit.emit(this.form.value);
+    } else {
+      if (this.form.errors?.['passwordMismatch']) {
+        window.alert('Passwords do not match!');
+      }
     }
   }
 

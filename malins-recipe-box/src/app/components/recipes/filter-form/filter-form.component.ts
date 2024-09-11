@@ -39,7 +39,7 @@ export class FilterFormComponent implements AfterViewInit {
     const selectedPreferences = this.getValues(this.preferences);
     console.log(selectedMealTypes, selectedPreferences);
 
-    this.dialogService.closeDialog({
+    this.dialogService.cancelDialog({
       selectedMealTypes,
       selectedPreferences
     });
@@ -51,8 +51,8 @@ export class FilterFormComponent implements AfterViewInit {
       .map(checkbox => checkbox.value);
   }
 
-  closeDialog(): void {
-    this.dialogService.closeDialog();
+  cancelDialog(): void {
+    this.dialogService.cancelDialog();
   }
 
 }

@@ -32,16 +32,6 @@ export class SignInComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.auth.isLoggedIn$.subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn;
-
-      if (this.isLoggedIn) {
-        window.alert('You are already logged in!'); 
-        this.router.navigate(['/my-page']);
-        return;
-      }
-    });
-
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
 
@@ -56,6 +46,7 @@ export class SignInComponent implements OnInit {
   public openSignInDialog(): void {
     this.dialogService.openDialog(UserFormComponent, { fields: this.fields })
     .subscribe(result => {
+      this.handleFormSubmit(result);
      
       if (result) {
         console.log('Result:', result);
@@ -64,11 +55,12 @@ export class SignInComponent implements OnInit {
   }
 
   handleFormSubmit = (formData: any) => {
+    console.log('yo')
     this.auth.login(formData).subscribe(response => {
-      console.log('Response:', response);
 
       if (this.isMobile) {
-        this.dialogService.closeDialog(response);
+        this.dialogService.cancelDialog(response);
+        console.log('Response:', response);
       } else {
         this.router.navigate(['/my-page']);
       }

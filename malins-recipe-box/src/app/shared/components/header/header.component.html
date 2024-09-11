@@ -10,22 +10,22 @@
 
                 <a class="dropdown-item" 
                 *ngIf="!isLoggedIn"
-                [ngClass]="{ 'guest-item': !loggedIn }" 
+                [ngClass]="{ 'guest-item': !isLoggedIn }" 
                 (click)="openSignIn()">Sign in</a>
 
                 <a class="dropdown-item" 
                 *ngIf="!isLoggedIn"
-                [ngClass]="{ 'guest-item': !loggedIn }" 
+                [ngClass]="{ 'guest-item': !isLoggedIn }" 
                 (click)="openRegister()">Register</a>
 
                 <a class="dropdown-item" 
                 *ngIf="isLoggedIn"
-                [ngClass]="{ 'user-item': loggedIn }"
+                [ngClass]="{ 'user-item': isLoggedIn }"
                 (click)="openMyPage()">My page</a>
 
                 <a class="dropdown-item" 
                 *ngIf="isLoggedIn" 
-                [ngClass]="{ 'user-item': loggedIn }"
+                [ngClass]="{ 'user-item': isLoggedIn }"
                 (click)="logout()">Logout</a>
 
             </div>
@@ -38,22 +38,22 @@
             
             <a class="nav-link" 
             *ngIf="!isLoggedIn"
-            [ngClass]="{ 'guest-item': !loggedIn }"
+            [ngClass]="{ 'guest-item': !isLoggedIn }"
             [routerLink]="['/sign-in']" >Sign in</a>
             
             <a class="nav-link" 
             *ngIf="!isLoggedIn"
-            [ngClass]="{ 'guest-item': !loggedIn }"
+            [ngClass]="{ 'guest-item': !isLoggedIn }"
             [routerLink]="['/register']">Register</a>
 
             <a class="nav-link" 
             *ngIf="isLoggedIn"
-            [ngClass]="{ 'user-item': loggedIn }"
+            [ngClass]="{ 'user-item': isLoggedIn }"
             [routerLink]="['/my-page']">My page</a>
 
             <a class="nav-link" 
             *ngIf="isLoggedIn" 
-            [ngClass]="{ 'user-item': loggedIn }"
+            [ngClass]="{ 'user-item': isLoggedIn }"
             (click)="logout()">Logout</a>
 
         </div>

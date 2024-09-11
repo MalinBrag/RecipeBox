@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../core/services/api/auth.service';
 
@@ -6,30 +7,22 @@ import { AuthService } from '../../../core/services/api/auth.service';
   selector: 'app-my-page',
   standalone: true,
   imports: [
-    RouterLink,    
+    RouterLink,
+    CommonModule,
   ],
   templateUrl: './my-page.component.html',
   styleUrls: ['./my-page.component.scss']
 })
-export class MyPageComponent implements OnInit {
-  isLoggedIn: boolean = false;
+export class MyPageComponent {
   
   constructor(
     private router: Router,
     private auth: AuthService,
   ) { }
 
-  ngOnInit(): void {
-    this.auth.isLoggedIn$.subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn;
-    });
-  }
-
   logout(): void {
     this.auth.logout();
-    if (!this.isLoggedIn) {
-      this.router.navigate(['home']);
-    }
+    this.router.navigate(['home']);
   }
 
 

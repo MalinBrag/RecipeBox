@@ -18,7 +18,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  isLoggedIn: boolean = false;
   isMobile: boolean = false;
   fields: string[] = ['name', 'email', 'password', 'password_confirmation'];
   mode: string = 'register';
@@ -37,16 +36,6 @@ export class RegisterComponent implements OnInit {
     });
 
     this.userFormService.setMode(this.mode);
-    
-    this.auth.isLoggedIn$.subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn;
-
-      if (this.isLoggedIn) {
-        window.alert('You are already logged in!'); 
-        this.router.navigate(['/my-page']);
-        return;
-      }
-    });
 
     if (this.isMobile) {
       this.openRegisterDialog();
@@ -67,7 +56,7 @@ export class RegisterComponent implements OnInit {
       console.log('Response:', response);
       
       if (this.isMobile) {
-        this.dialogService.closeDialog(response);
+        this.dialogService.cancelDialog(response);
       } else {
         this.router.navigate(['/my-page']);
       }

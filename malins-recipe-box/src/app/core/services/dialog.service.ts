@@ -12,6 +12,7 @@ export class DialogService {
 
   openDialog(component: any, data?: any): Observable<any> {
     const dialogRef = this.dialog.open(component);
+    console.log(data);
 
     if (data?.fields) {
       (dialogRef.componentInstance as any).fields = data.fields;
@@ -20,7 +21,7 @@ export class DialogService {
     return dialogRef.afterClosed();
   }
 
-  closeDialog(data?: any): void {
+  cancelDialog(data?: any): void {
     this.dialog.closeAll();
   }
 
