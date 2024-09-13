@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { UserFormComponent } from '../../../shared/components/user-form/user-form.component';
-import { NgIf } from '@angular/common';
-import { DialogService } from '../../../core/services/dialog.service';
+import { CommonModule } from '@angular/common';
 import { DeviceService } from '../../../core/services/device.service';
 import { UserFormService } from '../../../core/services/user-form.service';
 import { AuthService } from '../../../core/services/api/auth.service';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
+import { ErrorHandlingService } from '../../../core/services/error-handling.service';
+import { UserFormData } from '../../../shared/models/userform-data.model';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
     UserFormComponent,
-    NgIf,
+    CommonModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
@@ -22,12 +24,12 @@ export class RegisterComponent implements OnInit {
   fields: string[] = ['name', 'email', 'password', 'password_confirmation'];
   mode: string = 'register';
 
-  constructor(
-    private dialogService: DialogService, 
+  constructor( 
     private deviceService: DeviceService,
     private userFormService: UserFormService,
     private auth: AuthService,
     private router: Router,
+    private errorService: ErrorHandlingService,
   ) {}
 
   ngOnInit(): void {
@@ -36,27 +38,14 @@ export class RegisterComponent implements OnInit {
     });
 
     this.userFormService.setMode(this.mode);
-
-    if (this.isMobile) {
-      this.openRegisterDialog();
-    }
   }
 
- openRegisterDialog(): void {
-    this.dialogService.openDialog(UserFormComponent, { fields: this.fields }).subscribe(result => {
-      
-      if (result) {
-        console.log('Result:', result);
-      }
-    });
-  }
-
-  handleFormSubmit = (formData: any) => {
-    this.auth.register(formData).subscribe(response => {
-      console.log('Response:', response);
-      
-      if (this.isMobile) {
-        this.dialogService.cancelDialog(response);
+  handleFormSubmit = (formData: UserFormData) => {
+    this.auth.register(formData).pipe(
+      catchError(this.errorService.handleError<any>('register'))
+    ).subscribe(response => {
+      if (response.error) { 
+        window.alert("Something happened, please try again");
       } else {
         this.router.navigate(['/my-page']);
       }

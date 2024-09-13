@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { DeviceService } from '../../../core/services/device.service';
-import { NgIf, NgClass } from '@angular/common';
+import { CommonModule, NgIf, NgClass } from '@angular/common';
 import { DialogService } from '../../../core/services/dialog.service';
 import { RegisterComponent } from '../../../components/user/register/register.component';
 import { SignInComponent } from '../../../components/user/sign-in/sign-in.component';
@@ -12,6 +12,7 @@ import { AuthService } from '../../../core/services/api/auth.service';
   standalone: true,
   imports: [
     NgIf,
+    CommonModule,
     NgClass,
     RouterLink,
     RegisterComponent,
@@ -48,7 +49,7 @@ export class HeaderComponent implements OnInit {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  openSignIn(): void {
+  openSignIn() {
     if (this.isMobile) {
       this.dialogService.openDialog(SignInComponent, { 
         fields: ['email', 'password'],
@@ -59,7 +60,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  openRegister(): void {
+  openRegister() {
     if (this.isMobile) {
       this.dialogService.openDialog(RegisterComponent, {
          fields: ['name', 'email', 'password', 'password_confirmation']
@@ -73,18 +74,15 @@ export class HeaderComponent implements OnInit {
   openMyPage() {
     if (this.isLoggedIn) {
       this.router.navigate(['/my-page']).then(() => {
-        this.dropdownOpen = false; // TODO KOLLA OM DROPDOWN ÄR ÖPPEN, OM INTE, SÅ BEHÖVS BARA ROUTERLINK, EJ FUNKTION
+        this.dropdownOpen = false; 
       });
     }
   }
 
   logout(): void {
     this.auth.logout();
-
-    if (!this.isLoggedIn) {
-      this.dropdownOpen = false;
-      this.router.navigate(['home']);
-    }
+    this.dropdownOpen = false;
+    this.router.navigate(['home']);
   } 
 
   

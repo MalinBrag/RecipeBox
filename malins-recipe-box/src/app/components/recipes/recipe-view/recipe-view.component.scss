@@ -17,8 +17,8 @@
     width: 100%;
     
     .recipe-title {
-        @include h1-style;
         font-size: 3rem;
+        @include h1-style;
 
         @media (max-width: 768px) {
             font-size: 2.2rem;
@@ -45,9 +45,9 @@
 }
 .ingredients-title,
 .instructions-title {
-    @include subheader-style;
     text-transform: uppercase;
     margin: 0;
+    @include subheader-style;
 }
 
 .ingredients-list {

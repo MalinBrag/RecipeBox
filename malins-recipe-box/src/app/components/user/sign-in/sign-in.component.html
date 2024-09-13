@@ -1,8 +1,6 @@
 <section class="sign-in-container">
-    <div *ngIf="!isMobile">
-        <div class="desktop-sign-in">
-            <app-user-form [fields]="fields" (onSubmit)="handleFormSubmit($event)">
-            </app-user-form>
-        </div>
+    <div class="desktop-sign-in">
+        <app-user-form [fields]="fields" (formSubmit)="handleFormSubmit($event)">
+        </app-user-form>
     </div>
 </section>

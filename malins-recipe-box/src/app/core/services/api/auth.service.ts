@@ -3,20 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap, BehaviorSubject, of } from 'rxjs';
 import { LoginData } from '../../../shared/models/login-data.model';
 import { LoginResponse } from '../../../shared/models/login-response.model';
-import { environment } from '../../../../environment/environment';
 import { User } from '../../../shared/models/user.model';
+import { catchError } from 'rxjs/operators';
+import { ErrorHandlingService } from '../error-handling.service';
+
+//ta bort developertoken
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private url = "http://localhost:8000/api";
-  private developerToken = environment.developerToken;
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  constructor(private http: HttpClient) { 
+  constructor(
+    private http: HttpClient,
+    private errorHandlingService: ErrorHandlingService
+  ) { 
     this.checkLoginStatus();
   }
 
@@ -37,58 +42,63 @@ export class AuthService {
     return sessionStorage.getItem('userId')!;
   }
   
-  register(user: User): Observable<any> {
-    return this.http.post(`${this.url}/register`, user).pipe(
-      tap((response: any) => {
-        console.log('register:', response);
+  register(user: User): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.url}/register`, user).pipe(
+      tap((response: LoginResponse) => {
         const token = response.token;
-        const userId = response.userId;
+        const userId = response.user?.id;
 
         this.setToken(token);
-        this.setUserUserId(userId);
-      })
+
+        if (userId) {
+          this.setUserUserId(userId);
+        }
+      }),
+      catchError(this.errorHandlingService.handleError<any>('register'))
     );
   }
 
-  login(data: LoginData): Observable<any> {
-    return this.http.post(`${this.url}/login`, data).pipe(
-      tap((response: any) => {
+  login(data: LoginData): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.url}/login`, data).pipe(
+      tap((response: LoginResponse) => {
         const token = response.token;
-        const userId = response.userId;
+        const userId = response.user?.id;
 
         this.setToken(token);
-        this.setUserUserId(userId);
-      })
+        if (userId) {
+          this.setUserUserId(userId);
+        }
+      }),
+      catchError(this.errorHandlingService.handleError<any>('login'))
     );
   }
 
   logout(): void {
     this.http.post(`${this.url}/logout`, {}).pipe(
-      tap((response: any) => { 
+      tap((response: any) => {
         sessionStorage.removeItem('token');
         this.isLoggedInSubject.next(false);
         sessionStorage.clear();
-      })
-    ). subscribe(
-      (response) => {
-        //MÅSTE GÖRA NÅGOT HÄR ANNARS FUNKAR DET INTE
-        console.log('logout:', response);
-      }
-    );
+      }),
+      catchError(this.errorHandlingService.handleError<any>('logout'))
+    ). subscribe();
   }
 
   getUser(id: string): Observable<User> {
-    return this.http.get<User>(`${this.url}/getuser/${id}`, 
+    return this.http.get<User>(`${this.url}/getuser/${id}`).pipe(
+      catchError(this.errorHandlingService.handleError<User>('getUser'))
     );
   }
 
   edit(id: string, userData: User): Observable<User> {
-    return this.http.put(`${this.url}/edit/${id}`, userData
-    );
+    return this.http.put<User>(`${this.url}/edit/${id}`, userData).pipe(
+      catchError(this.errorHandlingService.handleError<User>('edit'))
+      );
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.url}/delete/${id}`, 
+    return this.http.delete<void>(`${this.url}/delete/${id}`).pipe(
+      catchError(this.errorHandlingService.handleError<void>('delete')) 
     );
   }
 

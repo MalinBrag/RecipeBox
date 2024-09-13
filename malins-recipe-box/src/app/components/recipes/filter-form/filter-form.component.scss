@@ -3,27 +3,14 @@
 @import "../../../../assets/styles/mixins.scss";
 
 .filter-form {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 50%;
-    margin: 0 1rem 1rem 1rem;
- 
-    @media (max-width: 768px) {
-        flex-direction: column;
-        width: auto;
-    }
+    @include form-layout;
 }
 
 .submit-btn {
-    @include button;
     margin: 2rem 0.5rem 0.5rem 0.5rem;
     order: 1;
     width: 50%;
-
-    &:hover {
-        background-color: darken($color-tertiary, 10%);
-    }
+    @include button;
 
     @media (max-width: 768px) {
         margin: 1rem 0;
@@ -40,9 +27,9 @@
 }
 
 h2 {
-    @include h2-style;
     text-transform: uppercase;
     padding-right: 3rem;
+    @include h2-style;
 }
 
 .filter-options {
@@ -66,11 +53,7 @@ h2 {
 
 @media (max-width: 768px) {
     .close-btn {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-        color: $color-primary;
-        font-size: $h1-size;
+        @include close-x-btn;
     }
 }
 

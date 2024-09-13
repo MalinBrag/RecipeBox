@@ -1,0 +1,16 @@
+@use "../../../../assets/styles/variables.scss";
+@import "../../../../assets/styles/styles.scss";
+@import "../../../../assets/styles/mixins.scss";
+
+.not-found-container {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 0 1.5rem;
+}
+
+.btn-not-found {
+    margin: 2rem;
+    padding: 0.8rem 3.5rem;
+    border: 2px solid $color-primary;
+    @include button;
+}

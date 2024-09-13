@@ -13,6 +13,7 @@ import { SignInComponent } from './components/user/sign-in/sign-in.component';
 import { MyPageComponent } from './components/user/my-page/my-page.component';
 import { EditComponent } from './components/user/edit/edit.component';
 import { DeleteComponent } from './components/user/delete/delete.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 import { authGuard } from './core/guards/auth.guard';
 
@@ -32,5 +33,6 @@ export const routes: Routes = [
     { path: 'my-page', component: MyPageComponent, canActivate: [authGuard] },
     { path: 'edit', component: EditComponent, canActivate: [authGuard] },
     { path: 'delete', component: DeleteComponent, canActivate: [authGuard] },
+    { path: '**', component: NotFoundComponent }
    
 ];

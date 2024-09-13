@@ -5,6 +5,7 @@ import { UserFormComponent } from '../../../shared/components/user-form/user-for
 import { AuthService } from '../../../core/services/api/auth.service';
 import { UserFormService } from '../../../core/services/user-form.service';
 import { Router } from '@angular/router';
+import { UserFormData } from '../../../shared/models/userform-data.model';
 
 @Component({
   selector: 'app-edit',
@@ -42,7 +43,7 @@ export class EditComponent implements OnInit {
     //EJ KLAR
   }
 
-  handleFormSubmit = (formData: any) => {
+  handleFormSubmit = (formData: UserFormData) => {
     //EJ KLAR
     this.userId = this.auth.getUserId();
     this.auth.edit(this.userId, formData).subscribe(response => {

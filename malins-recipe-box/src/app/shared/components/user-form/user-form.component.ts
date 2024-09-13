@@ -1,6 +1,7 @@
 import { Component, Optional, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl } from '@angular/forms';
 import { DialogService } from '../../../core/services/dialog.service';
+import { DeviceService } from '../../../core/services/device.service';
 import { UserFormService } from '../../../core/services/user-form.service';
 import { NgIf, CommonModule } from '@angular/common';
 
@@ -17,13 +18,15 @@ import { NgIf, CommonModule } from '@angular/common';
 })
 export class UserFormComponent implements OnInit {
   @Input() fields: string[] = [];
-  @Output() onSubmit = new EventEmitter<any>();
+  @Output() formSubmit = new EventEmitter<any>();
   title: string = '';
   form!: FormGroup;
+  isMobile: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     @Optional() private dialogService: DialogService,
+    private deviceService: DeviceService,
     private userFormService: UserFormService,
   ) {}
 
@@ -45,6 +48,10 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.deviceService.isMobile().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
+
     const mode = this.userFormService.getMode();
     this.setTitle(mode);
     this.initializeForm();
@@ -78,10 +85,11 @@ export class UserFormComponent implements OnInit {
     this.dialogService.cancelDialog();
   }
 
-  submitForm(): void {
+  submitForm() {
     if (this.form.valid) {
-      this.onSubmit.emit(this.form.value);
-    } else {
+      this.formSubmit.emit(this.form.value);
+      this.dialogService.closeDialog();
+     } else {
       if (this.form.errors?.['passwordMismatch']) {
         window.alert('Passwords do not match!');
       }

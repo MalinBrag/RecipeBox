@@ -1,66 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { UserFormComponent } from '../../../shared/components/user-form/user-form.component';
-import { NgIf } from '@angular/common';
-import { DialogService } from '../../../core/services/dialog.service';
+import { CommonModule } from '@angular/common';
 import { DeviceService } from '../../../core/services/device.service';
 import { UserFormService } from '../../../core/services/user-form.service';
 import { AuthService } from '../../../core/services/api/auth.service';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
+import { ErrorHandlingService } from '../../../core/services/error-handling.service';
+import { LoginData } from '../../../shared/models/login-data.model';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
   imports: [
     UserFormComponent,
-    NgIf,
+    CommonModule,
   ],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  isLoggedIn: boolean = false;
   isMobile: boolean = false;
   fields: string[] = ['email', 'password'];
   mode: string = 'sign-in';
 
   constructor(
-    private dialogService: DialogService,
     private deviceService: DeviceService,
     private userFormService: UserFormService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private errorService: ErrorHandlingService,
     ) {}
 
   ngOnInit(): void {
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
-
-      if (this.isMobile) {
-        this.openSignInDialog();
-      }
     });
 
     this.userFormService.setMode(this.mode);
   }
 
-  public openSignInDialog(): void {
-    this.dialogService.openDialog(UserFormComponent, { fields: this.fields })
-    .subscribe(result => {
-      this.handleFormSubmit(result);
-     
-      if (result) {
-        console.log('Result:', result);
-      }
-    });
-  }
-
-  handleFormSubmit = (formData: any) => {
-    console.log('yo')
-    this.auth.login(formData).subscribe(response => {
-
-      if (this.isMobile) {
-        this.dialogService.cancelDialog(response);
-        console.log('Response:', response);
+  handleFormSubmit = (formData: LoginData) => {
+    this.auth.login(formData).pipe(
+      catchError(this.errorService.handleError<any>('login'))
+    ).subscribe(response => {
+      if (response.error) { 
+        window.alert("Credentials not correct");
       } else {
         this.router.navigate(['/my-page']);
       }

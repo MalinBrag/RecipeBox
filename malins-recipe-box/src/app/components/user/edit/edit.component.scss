@@ -8,10 +8,10 @@
 }
 
 .submit-btn {
-    @include button;
     margin: 2rem 0.5rem;
     order: 1;
     width: auto;
+    @include button;
     
     &:hover {
         background-color: darken($color-tertiary, 10%);
