@@ -1,5 +1,9 @@
+<!-- Recipe List Component Template -->
+
+<!-- Main container for the list -->
 <main class="recipe-list-container">
     <div class="recipe-list">
+        <!-- Display each recipe with a link to recipe view component -->
         <div class="recipe-display" *ngFor="let recipe of recipes">
             <a [routerLink]="['/recipe-view', getIdFromUri(recipe.uri)]"
             [queryParams]="{ mealType: filters.mealType, preference: filters.preference }">
@@ -9,6 +13,8 @@
                 <h1>{{ recipe.label }}</h1>
             </div>
 
+            <!-- Info section below each recipe with cooking time 
+             and favorite button (not activated) -->
             <div class="recipe-info">
                 <p class="recipe-time">Cooking Time: {{ recipe?.totalTime }} minutes</p>
                 <button class="favorite-btn">
@@ -20,6 +26,7 @@
         </div>
     </div>
 
+    <!-- Pagination buttons -->
     <div class="pagination-btns" *ngIf="!allRecipesLoaded">
         <button class="load-more-btn" (click)="loadRecipes(filters, filtersChanged)">Load more</button>
         <button class="scroll-to-top-btn" (click)="scrollToTop()">

@@ -31,12 +31,18 @@ export class FilterComponent implements OnInit {
     private elRef: ElementRef,
   ) {}
 
+  /**
+   * Initialize the component
+   */
   ngOnInit(): void {
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
     });
   }
 
+  /**
+   * Toggle the visibility of the filter form
+   */
   toggleFilterVisibility(): void {
     const filterContainer = this.elRef.nativeElement.querySelector('.filter-container');
     if (filterContainer. classList.contains('filter-form-visible')) {
@@ -46,6 +52,10 @@ export class FilterComponent implements OnInit {
     }
   } 
 
+  /**
+   * Apply the filters to the recipes and emit the filter change event
+   * @param filters - The selected filters
+   */
   applyFilter = (filters: { mealType: string[], preference: string[] }) => {
     this.filtersChanged = true;
     this.filterChange.emit({

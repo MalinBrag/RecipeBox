@@ -16,6 +16,10 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 
 import { authGuard } from './core/guards/auth.guard';
 
+/**
+ * Define the routes for the application
+ */
+
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },

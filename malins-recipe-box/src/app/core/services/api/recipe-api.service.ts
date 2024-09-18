@@ -19,6 +19,9 @@ export class RecipeApiService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Reset the pagination to start
+   */
   resetPagination() {
     this.nextPage = null;
   }
@@ -31,7 +34,13 @@ export class RecipeApiService {
     imageSize: 'REGULAR',
     field: ['uri', 'label', 'image', 'yield', 'healthLabels', 'ingredientLines', 'totalTime', 'mealType', 'dishType']
   }
-  
+
+  /**
+   * Build the query string for the API request
+   * @param healthLabelParams - Health labels to filter by (allergies, preferences, etc.)
+   * @param mealTypeParams - Meal types to filter by
+   * @returns The query string
+   */
   private buildQuery(healthLabelParams: string[], mealTypeParams: string[]): string {
     let queryString = `type=${this.baseQuery.type}&app_id=${this.baseQuery.app_id}&app_key=${this.baseQuery.app_key}`;
     
@@ -59,6 +68,12 @@ export class RecipeApiService {
     return queryString;
   }
 
+  /**
+   * Fetches recipes from the API based on the health labels and meal types if there are any
+   * @param healthLabel - Health labels to filter by (allergies, preferences, etc.)
+   * @param mealType -  Meal types to filter by
+   * @returns An observable of RecipeModel
+   */
   getRecipes(healthLabel: string[], mealType: string[]): Observable<RecipeModel[]> {
     const queryString = this.buildQuery(healthLabel, mealType);
     const url = this.nextPage || `${this.apiUrl}?${queryString}`;
@@ -77,13 +92,22 @@ export class RecipeApiService {
         return of([]);
       })
     );
-    //return of ([]);
+    
   }
 
+  /**
+   * Gets the field parameters from the base query
+   * @returns The field parameters as a string
+   */
   getFieldParams(): string {
     return this.baseQuery.field.map(field => `&field=${encodeURIComponent(field)}`).join('');
   }
 
+  /**
+   * Fetches recipe by ID
+   * @param id - The ID of the recipe
+   * @returns An recipe object
+   */
   getRecipeById(id: string): any {
     const fields = this.getFieldParams();
     const url = `${this.apiUrl}/${id}?type=public&app_id=${this.appId}&app_key=${this.appKey}${fields}`;
@@ -95,11 +119,14 @@ export class RecipeApiService {
 
     return this.http.get<{ recipe: RecipeModel }>(url, { headers }).pipe(
       map(response => {
-        console.log(response);
         const recipe = response.recipe;
         return recipe;
       }),
-    );
+      catchError(error => {
+      console.error('Error loading recipe:', error);
+      return of(undefined);
+    })
+  );
   }
 
 }

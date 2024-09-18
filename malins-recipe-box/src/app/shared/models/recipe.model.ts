@@ -1,3 +1,7 @@
+/**
+ * Interface for the Recipe model structure
+ */
+
 export interface RecipeModel {
     uri: string;
     label: string;

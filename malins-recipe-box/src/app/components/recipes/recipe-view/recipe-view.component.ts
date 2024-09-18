@@ -23,6 +23,9 @@ export class RecipeViewComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
+  /**
+   * Load the recipe when the component initializes
+   */
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -30,6 +33,10 @@ export class RecipeViewComponent implements OnInit {
     }
   }
 
+  /**
+   * Load a recipe by ID
+   * @param id - The recipe ID
+   */
   loadRecipe(id: string): void {
     this.recipeService.getRecipeById(id).subscribe({
       next: (recipe: RecipeModel | undefined) => {
@@ -45,6 +52,9 @@ export class RecipeViewComponent implements OnInit {
     });
   }
 
+  /**
+   * Share the recipe using the Web Share API
+   */
   shareRecipe(): void {
     if (navigator.share) {
       navigator.share({
@@ -52,7 +62,7 @@ export class RecipeViewComponent implements OnInit {
         text: 'Check out this recipe!',
         url: window.location.href
       }).then(() => {
-        console.log('Thanks for sharing!');
+        window.alert('Thanks for sharing!');
       }).catch((error) => {
         console.error('Error sharing:', error);
       });

@@ -1,8 +1,12 @@
+<!-- Filter Component Template -->
+
+<!-- Container for filter form (another component) -->
 <section class="filter-container">
     <div class="form-filter">
         <app-filter-form (formSubmit)="applyFilter($event)"></app-filter-form>
     </div>
 
+    <!-- Filter toggle button for mobile view -->
     <button class="filter-btn mobile-filter-btn" (click)="toggleFilterVisibility()">
         <i class="bi bi-filter"></i> Filter
     </button>

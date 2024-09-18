@@ -1,4 +1,6 @@
-//EJ KLAR
+/**
+ * EJ KLAR
+ */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserFormComponent } from '../../../shared/components/user-form/user-form.component';

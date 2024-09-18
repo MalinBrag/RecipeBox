@@ -32,6 +32,9 @@ export class SignInComponent implements OnInit {
     private errorService: ErrorHandlingService,
     ) {}
 
+  /**
+   * Initialize the component and set mode "sign-in" for the form
+   */
   ngOnInit(): void {
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
@@ -40,6 +43,10 @@ export class SignInComponent implements OnInit {
     this.userFormService.setMode(this.mode);
   }
 
+  /**
+   * Handle the form submit event
+   * @param formData - The form data
+   */
   handleFormSubmit = (formData: LoginData) => {
     this.auth.login(formData).pipe(
       catchError(this.errorService.handleError<any>('login'))

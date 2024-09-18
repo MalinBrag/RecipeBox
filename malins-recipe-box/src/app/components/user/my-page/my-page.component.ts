@@ -20,6 +20,9 @@ export class MyPageComponent {
     private auth: AuthService,
   ) { }
 
+  /**
+   * Log out the user and navigate to the home page
+   */
   logout(): void {
     this.auth.logout();
     this.router.navigate(['home']);

@@ -1,4 +1,9 @@
+<!-- Recipe View Component Template -->
+
+<!-- Main container for the recipe view -->
 <main class="recipe-container" *ngIf="recipe">
+
+    <!-- Header section with title and favorite button (not activated) -->
     <div class="recipe-header-section">
         <h1 class="recipe-title">{{ recipe.label }}</h1>
         <button class="favorite-btn">
@@ -6,8 +11,10 @@
         </button>
     </div>
    
+    <!-- Recipe image -->
     <img [src]="recipe.image" alt="{{ recipe.label }}" class="recipe-image"/>
 
+    <!-- Columns for recipe details -->
     <div class="columns">
         <div class="column">
             <h3 class="column-title">Ingredients</h3>
@@ -37,6 +44,7 @@
         </div>
     </div>
 
+    <!-- Share button -->
     <div class="share">
         <button class="share-btn" (click)="shareRecipe()" title="Share this">
             <i class="bi bi-box-arrow-up-right"></i>

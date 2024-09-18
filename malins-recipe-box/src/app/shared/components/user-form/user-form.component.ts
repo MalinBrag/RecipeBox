@@ -30,6 +30,10 @@ export class UserFormComponent implements OnInit {
     private userFormService: UserFormService,
   ) {}
 
+  /**
+   * Set the title based on the mode from the parent component
+   * @param mode - The mode of the form
+   */
   setTitle(mode: string): void {
     switch (mode) {
       case 'sign-in':
@@ -47,6 +51,9 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Initialize the component and title
+   */
   ngOnInit(): void {
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
@@ -57,6 +64,9 @@ export class UserFormComponent implements OnInit {
     this.initializeForm();
   }
 
+  /**
+   * Initialize the form based on the fields provided by parent component
+   */
   initializeForm(): void {
     const formControls: { [key: string]: any } = {};
     this.fields.forEach(field => {
@@ -65,11 +75,16 @@ export class UserFormComponent implements OnInit {
 
     this.form = this.formBuilder.group(formControls);
 
+    //password match validation
     if (this.fields.includes('password') && this.fields.includes('password_confirmation')) {
       this.form.setValidators(this.passwordMatchValidator());
     }
   }
 
+  /**
+   * Validator to check if the password and password confirmation match
+   * @returns A validator function
+   */
   passwordMatchValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const password = control.get('password');
@@ -81,6 +96,9 @@ export class UserFormComponent implements OnInit {
     };
   }
 
+  /**
+   * Submit the form and emit the form values to the parent component
+   */
   submitForm() {
     if (this.form.valid) {
       this.formSubmit.emit(this.form.value);
@@ -92,6 +110,9 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Close the dialog
+   */
   cancelDialog(): void {
     this.dialogService.cancelDialog();
   }

@@ -35,6 +35,9 @@ export class HeaderComponent implements OnInit {
     private auth: AuthService,
   ) { }
 
+  /**
+   * Initialize the component
+   */
   ngOnInit(): void {
     this.auth.isLoggedIn$.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
@@ -45,10 +48,16 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  /**
+   * Toggles the dropdown menu for mobile view
+   */
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+  /**
+   * Opens the sign in dialog for mobile view or redirects to the sign in page for desktop
+   */
   openSignIn() {
     if (this.isMobile) {
       this.dialogService.openDialog(SignInComponent, { 
@@ -60,6 +69,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  /**
+   * Opens the register dialog for mobile view or redirects to the register page for desktop
+   */
   openRegister() {
     if (this.isMobile) {
       this.dialogService.openDialog(RegisterComponent, {
@@ -71,6 +83,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  /**
+   * Redirects to the my page if the user is logged in
+   */
   openMyPage() {
     if (this.isLoggedIn) {
       this.router.navigate(['/my-page']).then(() => {
@@ -79,6 +94,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  /**
+   * Logs the user out and redirects to the landing page
+   */
   logout(): void {
     this.auth.logout();
     this.dropdownOpen = false;

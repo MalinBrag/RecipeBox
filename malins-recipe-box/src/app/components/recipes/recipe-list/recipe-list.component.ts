@@ -29,17 +29,22 @@ export class RecipeListComponent implements OnInit {
     private recipeService: RecipeApiService,
   ) { }
 
+  /**
+   * Initialize the component and loads the recipes (with or without filters)
+   */
   ngOnInit(): void {
     this.loadRecipes(this.filters, this.filtersChanged);
   }
  
+  /**
+   * Loads the recipes from the API
+   * @param filters - The filters to apply
+   * @param filtersChanged - Whether the filters have changed
+   */
   loadRecipes(filters: { mealType: string[], preference: string[] }, filtersChanged: boolean): void {
     this.filtersChanged = filtersChanged;
-    console.log('MealType:', filters.mealType);
-    console.log('Preference:', filters.preference);
  
     if (filtersChanged) {
-      console.log('Filters changed');
       this.recipeService.resetPagination();
       this.recipes = [];
       this.allRecipesLoaded = false;
@@ -49,7 +54,6 @@ export class RecipeListComponent implements OnInit {
       next: (data: RecipeModel[]) => {
         if (data.length > 0) {
           this.recipes = this.recipes.concat(data);
-          console.log('Recipes:', data);
         } else {
           this.allRecipesLoaded = true;
         }
@@ -60,11 +64,19 @@ export class RecipeListComponent implements OnInit {
     });
   } 
 
+/**
+ * Extracts the recipe ID from the URI
+ * @param uri - The URI of the recipe
+ * @returns Recipe ID
+ */
   getIdFromUri(uri: string): string {
     const id = uri.split('#recipe_')[1];
     return id;
   }
 
+  /**
+   * Scrolls to the top of the page
+   */
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

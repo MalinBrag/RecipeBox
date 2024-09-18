@@ -32,6 +32,9 @@ export class RegisterComponent implements OnInit {
     private errorService: ErrorHandlingService,
   ) {}
 
+  /***
+   * Initialize the component and set mode "register" for the form
+   */
   ngOnInit(): void {
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
@@ -40,6 +43,10 @@ export class RegisterComponent implements OnInit {
     this.userFormService.setMode(this.mode);
   }
 
+  /**
+   * Handle the form submit event
+   * @param formData - The form data
+   */
   handleFormSubmit = (formData: UserFormData) => {
     this.auth.register(formData).pipe(
       catchError(this.errorService.handleError<any>('register'))

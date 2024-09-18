@@ -29,6 +29,9 @@ export class FilterFormComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {}
 
+  /**
+   * Initialize the component
+   */
   ngOnInit(): void {
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
@@ -37,6 +40,9 @@ export class FilterFormComponent implements OnInit {
     this.initizeForm();
   }
 
+  /**
+   * Initialize the form with the meal type and preference controls
+   */
   initizeForm(): void {
     this.form = this.formBuilder.group({
       mealType: this.formBuilder.array(this.mealTypeLabels.map(() => this.formBuilder.control(false))),
@@ -52,6 +58,9 @@ export class FilterFormComponent implements OnInit {
     return this.form.get('preference') as FormArray;
   }
 
+  /**
+   * Emit the form values when the form is submitted
+   */
   onSubmit(): void {
     const selectedMealType = this.form.value.mealType
     .map((checked: boolean, index: number) => checked ? this.mealTypeLabels[index] : null)

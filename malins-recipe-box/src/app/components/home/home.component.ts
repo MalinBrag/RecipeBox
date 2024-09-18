@@ -19,6 +19,10 @@ import { RecipeListComponent } from '../recipes/recipe-list/recipe-list.componen
 export class HomeComponent {
   @ViewChild(RecipeListComponent) recipeList!: RecipeListComponent;
 
+  /**
+   * Handle the filters applied to the recipes
+   * @param data - The filters applied to the recipes, if there are any
+   */
   onFiltersApplied(data: { filters: { mealType: string[], preference: string[] }, filtersChanged: boolean }) {
     this.recipeList.loadRecipes(data.filters, data.filtersChanged);
   }
