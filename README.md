@@ -50,3 +50,7 @@ I have used the following technologies:
 - Backend is accessible at http://localhost:8000
 - Database (adminer) is accessible at http://localhost:8080
 
+![Example recipes from list](malins-recipe-box/src/assets/images/RecipeExamples.png)
+![Sign in dialog in mobile view](malins-recipe-box/src/assets/images/SignIn.png)
+![Recipe display](malins-recipe-box/src/assets/images/DishExample.png)
+
