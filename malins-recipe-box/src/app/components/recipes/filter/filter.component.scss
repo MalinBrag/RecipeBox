@@ -7,6 +7,14 @@
   width: 100%;
 }
 
+.form-filter {
+  display: block;
+}
+
+.mobile-filter-btn {
+  display: none;
+}
+
 .filter-btn {
   @include button;
 
@@ -14,6 +22,24 @@
     margin-right: 0.5rem;
   }
 }
+
+@media (max-width: 768px) {
+  .form-filter {
+    display: none;
+  }
+
+  .mobile-filter-btn {
+    display: block;
+  }
+
+  .filter-form-visible .form-filter {
+    display: block;
+  }
+
+
+
+}
+
 
  
 

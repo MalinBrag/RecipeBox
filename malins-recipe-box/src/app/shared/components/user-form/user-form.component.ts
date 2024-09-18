@@ -81,10 +81,6 @@ export class UserFormComponent implements OnInit {
     };
   }
 
-  cancelDialog(): void {
-    this.dialogService.cancelDialog();
-  }
-
   submitForm() {
     if (this.form.valid) {
       this.formSubmit.emit(this.form.value);
@@ -94,6 +90,10 @@ export class UserFormComponent implements OnInit {
         window.alert('Passwords do not match!');
       }
     }
+  }
+
+  cancelDialog(): void {
+    this.dialogService.cancelDialog();
   }
 
 

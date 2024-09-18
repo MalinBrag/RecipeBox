@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+//PAGINATION EJ KLAR
+
+
+import { Component, OnInit, Input } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { RecipeModel } from '../../../shared/models/recipe.model';
 import { RecipeApiService } from '../../../core/services/api/recipe-api.service';
-import { RecipeInfoComponent } from '../../../shared/components/recipe-info/recipe-info.component';  
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,34 +13,57 @@ import { RecipeInfoComponent } from '../../../shared/components/recipe-info/reci
   imports: [
     RouterOutlet,
     NgForOf,
+    NgIf,
     RouterLink,
-    RecipeInfoComponent
   ],
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit {
   recipes: RecipeModel[] = [];
-  recipesPerPage: number = 10;
-  currentPage: number = 1;
   allRecipesLoaded: boolean = false;
-  displayedRecipes: RecipeModel[] = [];
+  filters = { mealType: [], preference: [] };
+  filtersChanged = false;
 
-  constructor(private recipeService: RecipeApiService) { }
+  constructor(
+    private recipeService: RecipeApiService,
+  ) { }
 
   ngOnInit(): void {
-    this.loadRecipes();
+    this.loadRecipes(this.filters, this.filtersChanged);
   }
  
-  loadRecipes(): void {
-    const offset = (this.currentPage - 1) * this.recipesPerPage;
-    this.recipeService.getRecipes(this.recipesPerPage, offset).subscribe({
+  loadRecipes(filters: { mealType: string[], preference: string[] }, filtersChanged: boolean): void {
+    this.filtersChanged = filtersChanged;
+    console.log('MealType:', filters.mealType);
+    console.log('Preference:', filters.preference);
+ 
+    if (filtersChanged) {
+      console.log('Filters changed');
+      this.recipeService.resetPagination();
+      this.recipes = [];
+      this.allRecipesLoaded = false;
+    }
+
+    this.recipeService.getRecipes(filters.preference, filters.mealType).subscribe({
       next: (data: RecipeModel[]) => {
-          this.displayedRecipes = this.displayedRecipes.concat(data);
-          this.currentPage++;
+        if (data.length > 0) {
+          this.recipes = this.recipes.concat(data);
+          console.log('Recipes:', data);
+        } else {
+          this.allRecipesLoaded = true;
+        }
+      },
+      error: (error: any) => {
+        console.error('There was an error!', error);  
       }
     });
   } 
+
+  getIdFromUri(uri: string): string {
+    const id = uri.split('#recipe_')[1];
+    return id;
+  }
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });

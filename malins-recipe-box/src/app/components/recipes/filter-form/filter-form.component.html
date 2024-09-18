@@ -1,27 +1,24 @@
-<form class="filter-form">
-    <div class="closable" data-closable>
-        <button class="close-btn" aria-label="Close alert" type="button" mat-button (click)="cancelDialog()" data-close>
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+<form class="filter-form" [formGroup]="form">
     <div class="filter-options">
         <div class="meal-type">
             <h2 class="mealType">Meal type</h2>
-            <div class="meal-type-options">
-                <mat-checkbox #breakfastCheckbox value="breakfast" name="mealType">Breakfast</mat-checkbox>
-                <mat-checkbox #lunchCheckbox value="lunch" name="mealType">Lunch</mat-checkbox>
-                <mat-checkbox #dinnerCheckbox value="dinner" name="mealType">Dinner</mat-checkbox>
+            <div class="meal-type-options" formArrayName="mealType">
+                <mat-checkbox *ngFor="let mealTypeControl of mealTypeArray.controls; let i = index" 
+                [formControlName]="i">
+                {{ mealTypeLabels[i] }}
+            </mat-checkbox>
             </div>
         </div>
 
-        <div class="preferences">
-            <h2 class="preferences">Preferences</h2>
-            <div class="preferences-options">
-                <mat-checkbox #vegetarianCheckbox value="vegetarian"name="preferences">Vegetarian</mat-checkbox>
-                <mat-checkbox #veganCheckbox value="vegan"name="preferences">Vegan</mat-checkbox>
-                <mat-checkbox #glutenfreeChec value="glutenfree" name="preferences">Gluten-free</mat-checkbox>
+        <div class="preference">
+            <h2 class="preference">Preferences</h2>
+            <div class="preference-options" formArrayName="preference">
+                <mat-checkbox *ngFor="let preferenceControl of preferenceArray.controls; let i = index" 
+                [formControlName]="i">
+                {{ preferenceLabels[i] }}
+            </mat-checkbox>
             </div>
         </div>
     </div>
-    <button class="submit-btn" type="button" (click)="applyFilter($event)">Apply</button>
+    <button class="submit-btn" type="button" (click)="onSubmit()">Apply</button>
 </form>

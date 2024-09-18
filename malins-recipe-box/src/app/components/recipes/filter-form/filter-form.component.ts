@@ -1,58 +1,69 @@
-import { Component, Optional, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { NgForOf, CommonModule } from '@angular/common';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { DialogService } from '../../../core/services/dialog.service';
+import { ReactiveFormsModule, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { DeviceService } from '../../../core/services/device.service';
 
 @Component({
   selector: 'app-filter-form',
   standalone: true,
   imports: [
+    NgForOf,
+    CommonModule,
     MatCheckbox,
+    ReactiveFormsModule,
   ],
   templateUrl: './filter-form.component.html',
   styleUrls: ['./filter-form.component.scss']
 })
-export class FilterFormComponent implements AfterViewInit {
+export class FilterFormComponent implements OnInit {
+  @Output() formSubmit = new EventEmitter<any>();
+  form!: FormGroup;
+  isMobile: boolean = false;
 
-  @ViewChildren(MatCheckbox) checkboxes!: QueryList<MatCheckbox>;
-
-  mealTypes: MatCheckbox[] = [];
-  preferences: MatCheckbox[] = [];
+  mealTypeLabels = ['Breakfast', 'Dinner', 'Teatime'];
+  preferenceLabels = ['Vegetarian', 'Vegan', 'Gluten-free'];
   
-  constructor(@Optional() private dialogService: DialogService) {}
+  constructor(
+    private deviceService: DeviceService,
+    private formBuilder: FormBuilder,
+  ) {}
 
-  ngAfterViewInit(): void {
-    this.categorizeCheckboxes();
+  ngOnInit(): void {
+    this.deviceService.isMobile().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
+
+    this.initizeForm();
   }
 
-  categorizeCheckboxes(): void {
-    this.checkboxes.forEach(checkbox => {
-      if (checkbox.name === 'mealType') {
-        this.mealTypes.push(checkbox);
-      } else if (checkbox.name === 'preferences') {
-        this.preferences.push(checkbox);
-      }
+  initizeForm(): void {
+    this.form = this.formBuilder.group({
+      mealType: this.formBuilder.array(this.mealTypeLabels.map(() => this.formBuilder.control(false))),
+      preference: this.formBuilder.array(this.preferenceLabels.map(() => this.formBuilder.control(false)))
     });
   }
 
-  applyFilter(event: Event): void {
-    const selectedMealTypes = this.getValues(this.mealTypes);
-    const selectedPreferences = this.getValues(this.preferences);
-    console.log(selectedMealTypes, selectedPreferences);
-
-    this.dialogService.cancelDialog({
-      selectedMealTypes,
-      selectedPreferences
-    });
+  get mealTypeArray(): FormArray {
+    return this.form.get('mealType') as FormArray;
   }
 
-  getValues(checkboxes: MatCheckbox[]): string[] {
-    return checkboxes
-      .filter(checkbox => checkbox.checked)
-      .map(checkbox => checkbox.value);
+  get preferenceArray(): FormArray {
+    return this.form.get('preference') as FormArray;
   }
 
-  cancelDialog(): void {
-    this.dialogService.cancelDialog();
+  onSubmit(): void {
+    const selectedMealType = this.form.value.mealType
+    .map((checked: boolean, index: number) => checked ? this.mealTypeLabels[index] : null)
+    .filter((value: string | null) => value !== null);
+
+    const selectedPreference = this.form.value.preference
+    .map((checked: boolean, index: number) => checked ? this.preferenceLabels[index] : null)
+    .filter((value: string | null) => value !== null)
+    .map((value: string) => value.toLowerCase());
+    
+    const result = { mealType: selectedMealType, preference: selectedPreference };
+    this.formSubmit.emit(result);
   }
 
 }

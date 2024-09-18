@@ -18,6 +18,7 @@ export class DialogService {
         (dialogRef.componentInstance as any).fields = data.fields;
       }
     });
+    
     return dialogRef.afterClosed();
   }
 

@@ -35,7 +35,7 @@
 
 .recipe-image {
   width: 100%;
-  height: auto;
+  height: 20rem;
   display: block;
   cursor: pointer;
 }
@@ -55,9 +55,9 @@
   width: 80%; 
 
   h1 {
-    color: $color-secondary;
-    font-size: 3rem;
     @include h1-style;
+    color: $color-secondary;
+    font-size: 1.5rem;
   }
 
   @media (max-width: 768px) {
@@ -66,6 +66,38 @@
     h1 {
       font-size: 1.5rem;
     }
+  }
+}
+
+.recipe-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.favorite-btn {
+  display: flex;
+  flex-grow: 2;
+  justify-content: flex-end;
+  background: none;
+  border: none;
+  padding-right: 1rem;
+  font-size: 1.5rem;
+  transition: transform 0.1s ease, color 0.1s ease; 
+
+  i {
+      cursor: pointer; 
+  
+      &:hover {
+          color: #ff6347; 
+      }
+
+      &:active {
+          transform: scale(0.9); 
+      }
   }
 }
 

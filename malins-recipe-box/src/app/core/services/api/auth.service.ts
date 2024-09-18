@@ -7,8 +7,6 @@ import { User } from '../../../shared/models/user.model';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandlingService } from '../error-handling.service';
 
-//ta bort developertoken
-
 @Injectable({
   providedIn: 'root'
 })

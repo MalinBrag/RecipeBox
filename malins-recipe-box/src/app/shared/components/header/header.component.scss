@@ -122,6 +122,7 @@
 .nav-link {
     text-decoration: none;
     margin-right: 1rem;
+    cursor: pointer;
     @include link-style;
 }
 

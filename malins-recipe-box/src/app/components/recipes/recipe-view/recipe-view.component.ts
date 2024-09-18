@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { RecipeApiService } from '../../../core/services/api/recipe-api.service';
 import { RecipeModel } from '../../../shared/models/recipe.model';
-import { RecipeInfoComponent } from '../../../shared/components/recipe-info/recipe-info.component';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-view',
   standalone: true,
   imports: [
     RouterOutlet,
-    RecipeInfoComponent,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './recipe-view.component.html',
   styleUrls: ['./recipe-view.component.scss']
@@ -40,7 +39,7 @@ export class RecipeViewComponent implements OnInit {
           console.error('Recipe not found');
         }
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error loading recipe:', error);
       }
     });
@@ -49,7 +48,7 @@ export class RecipeViewComponent implements OnInit {
   shareRecipe(): void {
     if (navigator.share) {
       navigator.share({
-        title: this.recipe.title,
+        title: this.recipe.label,
         text: 'Check out this recipe!',
         url: window.location.href
       }).then(() => {
