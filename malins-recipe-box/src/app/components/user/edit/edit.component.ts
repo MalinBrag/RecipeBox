@@ -1,48 +1,56 @@
+/**
+ * EJ KLAR
+ */
+
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../../../shared/models/user.model';
 import { UserFormComponent } from '../../../shared/components/user-form/user-form.component';
-import { UserApiService } from '../../../core/services/api/user-api.service';
+import { AuthService } from '../../../core/services/api/auth.service';
 import { UserFormService } from '../../../core/services/user-form.service';
-import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
+import { UserFormData } from '../../../shared/models/userform-data.model';
 
 @Component({
   selector: 'app-edit',
   standalone: true,
   imports: [
     UserFormComponent,
-    NgIf
   ],
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  loggedIn: boolean = true;
-  user: User = {  //mockdata
-    name: 'Malin',
-    email: 'malin@malin.se',
-    password: '123',
-  }
+  fields = ['name', 'email', 'password', 'password_confirmation'];
+  mode: string = 'edit';
+  userId?: string;
 
-  @ViewChild(UserFormComponent) userFormComponent!: UserFormComponent;
+  @ViewChild(UserFormComponent) userForm!: UserFormComponent;
 
   constructor(
-    private userApiService: UserApiService, 
+    private auth: AuthService, 
     private userFormService: UserFormService,
+    private router: Router,
   ) { }
   
-  ngOnInit() {
-    //this.user = this.userFormService.getUser();
-    this.loggedIn = true;
-    this.userFormService.setMode('edit');
+  ngOnInit(): void {
+    this.userId = this.auth.getUserId();
+
+    if (this.userId) {
+      this.populateForm(this.userId);
+    }
+
+    this.userFormService.setMode(this.mode);
   }
 
-
-  updateUser(user: User) {
-    //this.userApiService.updateUser(user).subscribe();
+  populateForm(userId: string): void {
+    //EJ KLAR
   }
 
-  onSubmit(): void {
-    this.userFormComponent.submitForm();
+  handleFormSubmit = (formData: UserFormData) => {
+    //EJ KLAR
+    this.userId = this.auth.getUserId();
+    this.auth.edit(this.userId, formData).subscribe(response => {
+      this.router.navigate(['/my-page']);
+    });
   }
 
 }

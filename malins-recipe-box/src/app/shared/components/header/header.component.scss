@@ -79,12 +79,11 @@
 }
 
 .title-link {
-    @include h1-style;
     font-size: 1.8rem;
     text-decoration: none;
+    @include h1-style;
 
     @media (max-width: 768px) {
-        @include h1-style;
         flex-grow: 1;
         text-align: center;
         margin: 0;
@@ -121,9 +120,10 @@
 }
 
 .nav-link {
-    @include link-style;
     text-decoration: none;
     margin-right: 1rem;
+    cursor: pointer;
+    @include link-style;
 }
 
 .search-container {

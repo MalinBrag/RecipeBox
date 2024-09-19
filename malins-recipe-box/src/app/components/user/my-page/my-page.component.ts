@@ -1,35 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../../core/services/api/auth.service';
 
 @Component({
   selector: 'app-my-page',
   standalone: true,
   imports: [
-    RouterLink,    
+    RouterLink,
+    CommonModule,
   ],
   templateUrl: './my-page.component.html',
   styleUrls: ['./my-page.component.scss']
 })
-export class MyPageComponent implements OnInit {
-  loggedIn: boolean = false;
+export class MyPageComponent {
   
   constructor(
     private router: Router,
+    private auth: AuthService,
   ) { }
 
-  ngOnInit(): void {
-    this.loggedIn = true;
-
-  }
-
+  /**
+   * Log out the user and navigate to the home page
+   */
   logout(): void {
-    //skicka till backend att logga ut
-    this.loggedIn = false;
+    this.auth.logout();
     this.router.navigate(['home']);
   }
-
-
-
 
 
 

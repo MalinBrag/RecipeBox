@@ -1,5 +1,10 @@
+/**
+ * Interface for User model structure
+ */
+
 export interface User {
-    name: string;
-    email: string;
-    password: string;
+    id?: string
+    name?: string;
+    email?: string;
+    password?: string;
 }

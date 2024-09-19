@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, Output, EventEmitter } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { DialogService } from '../../../core/services/dialog.service';
 import { DeviceService } from '../../../core/services/device.service';
 import { FilterFormComponent } from '../filter-form/filter-form.component';
+import { RecipeApiService } from '../../../core/services/api/recipe-api.service';
+import { RecipeModel } from '../../../shared/models/recipe.model';
 
 @Component({
   selector: 'app-filter',
@@ -15,31 +16,52 @@ import { FilterFormComponent } from '../filter-form/filter-form.component';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
+  @Output() filterChange = new EventEmitter<{ filters: { mealType: string[], preference: string[] }, filtersChanged: boolean }>();
+  filtersChanged = false;
+
+  recipes: RecipeModel[] = [];
+  allRecipesLoaded: boolean = false;
   isMobile: boolean = false;
-  filters = {};
+  filters = { mealType: [], preference: [] };
 
   constructor(
-    private dialogService: DialogService, 
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private apiService: RecipeApiService,
+    private renderer: Renderer2,
+    private elRef: ElementRef,
   ) {}
 
+  /**
+   * Initialize the component
+   */
   ngOnInit(): void {
     this.deviceService.isMobile().subscribe(isMobile => {
       this.isMobile = isMobile;
     });
   }
 
-  openFilterDialog() {
-    this.dialogService.openDialog(FilterFormComponent, {}).subscribe(result => {
-      if (result) {
-        this.filters = result;
-        this.applyFilters();
-      }
-    });
-  }
+  /**
+   * Toggle the visibility of the filter form
+   */
+  toggleFilterVisibility(): void {
+    const filterContainer = this.elRef.nativeElement.querySelector('.filter-container');
+    if (filterContainer. classList.contains('filter-form-visible')) {
+      this.renderer.removeClass(filterContainer, 'filter-form-visible');
+    } else {
+      this.renderer.addClass(filterContainer, 'filter-form-visible');
+    }
+  } 
 
-  applyFilters(): void {
-    console.log('Applying filters:', this.filters);
+  /**
+   * Apply the filters to the recipes and emit the filter change event
+   * @param filters - The selected filters
+   */
+  applyFilter = (filters: { mealType: string[], preference: string[] }) => {
+    this.filtersChanged = true;
+    this.filterChange.emit({
+      filters,
+      filtersChanged: this.filtersChanged,
+    });
   }
 
 

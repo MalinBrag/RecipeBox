@@ -32,7 +32,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        auth()->user()->tokens()->delete();
+        $request->user()->tokens()->delete();
         return [
             "message" => "logged out"
         ];
@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $fields['email'])->first();
 
-        if (!$user || !HASH::check($fields['password'], $user->password)) {
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
                 "message" => "Credentials not correct"
             ], 401);

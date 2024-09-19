@@ -1,25 +1,52 @@
-<form class="user-form" [formGroup]="userForm">
+<!-- User Form Component Template -->
+
+<!-- Form with Angular Reative Forms binding -->
+<form [formGroup]="form" class="user-form">
+    <!-- Close by X in the corner -->
     <div class="closable" data-closable>
-        <button class="close-btn" aria-label="Close alert" type="button" mat-button (click)="closeDialog()" data-close>
+        <button class="close-btn" aria-label="Close alert" type="button" mat-button (click)="cancelDialog()" data-close>
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+
+    <!-- Title of the form -->
     <div class="form-title">
         <h2>{{ title }}</h2>
     </div> 
+    <!-- Container for form fields, fields are set by parent component -->
     <div class="credentials">
-        <div class="form-group">
+        <div class="form-group" *ngIf="fields.includes('name')">
             <label for="name">Name</label>
             <input type="text" id="name" formControlName="name" required>
+            <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="error-message">
+                Name is required.
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="fields.includes('email')">
             <label for="email">Email</label>
             <input type="email" id="email" formControlName="email" required>
+            <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="error-message">
+                Email is required.
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="fields.includes('password')">
             <label for="password">Password</label>
             <input type="password" id="password" formControlName="password" required>
+            <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="error-message">
+                Password is required.
+            </div>
+        </div>
+       <div class="form-group" *ngIf="fields.includes('password_confirmation')">
+            <label for="password_confirmation">Confirm password</label>
+            <input type="password_confirmation" id="password_confirmation" formControlName="password_confirmation" required>
+            <div *ngIf="form.get('password_confirmation')?.touched && form.get('password_confirmation')?.invalid" class="error-message">
+                Password confirmation is required.
+            </div>
         </div>
     </div>
-    <button class="mobile-submit-btn" type="button" (click)="submitForm()">Submit</button>
+
+    <!-- Submit button -->
+    <div class="btn-container">
+        <button class="submit-btn" type="button" (click)="submitForm()">Submit</button>
+    </div>
 </form>

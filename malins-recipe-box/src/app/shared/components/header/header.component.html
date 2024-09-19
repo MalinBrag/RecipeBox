@@ -1,63 +1,74 @@
+<!-- Header Component Template -->
+
+
 <header class="main-header">
+    <!-- Title container with a link to the landing page -->
     <div class="title-container">
-        <a href="/" class="title-link">
+        <a [routerLink]="['/home']" class="title-link">
             <h1 class="main-title">{{ title }}</h1>
         </a>
 
+        <!-- Profile icon with dropdown menu for mobile view -->
         <div class="profile" *ngIf="isMobile">
             <i class="bi bi-person-circle" aria-hidden="true" (click)="toggleDropdown()"></i>
             <div class="dropdown-menu" *ngIf="dropdownOpen">
 
+                <!-- Sign in and register links for guests -->
                 <a class="dropdown-item" 
-                *ngIf="!loggedIn"
-                [ngClass]="{ 'guest-item': !loggedIn }" 
-                (click)="onSignIn()">Sign in</a>
+                *ngIf="!isLoggedIn"
+                [ngClass]="{ 'guest-item': !isLoggedIn }" 
+                (click)="openSignIn()">Sign in</a>
 
                 <a class="dropdown-item" 
-                *ngIf="!loggedIn"
-                [ngClass]="{ 'guest-item': !loggedIn }" 
-                (click)="onRegister()">Register</a>
+                *ngIf="!isLoggedIn"
+                [ngClass]="{ 'guest-item': !isLoggedIn }" 
+                (click)="openRegister()">Register</a>
+
+                <!-- My page and logout links for logged in users -->
+                <a class="dropdown-item" 
+                *ngIf="isLoggedIn"
+                [ngClass]="{ 'user-item': isLoggedIn }"
+                (click)="openMyPage()">My page</a>
 
                 <a class="dropdown-item" 
-                *ngIf="loggedIn"
-                [ngClass]="{ 'user-item': loggedIn }"
-                (click)="onMyPage()">My page</a>
-
-                <a class="dropdown-item" 
-                *ngIf="loggedIn" 
-                [ngClass]="{ 'user-item': loggedIn }"
+                *ngIf="isLoggedIn" 
+                [ngClass]="{ 'user-item': isLoggedIn }"
                 (click)="logout()">Logout</a>
 
             </div>
         </div>
     </div>
 
+    <!-- Navigation bar for desktop view -->
     <nav class="header-navbar">
         <div class="profile-functions" *ngIf="!isMobile">
             <i class="bi bi-person-circle" aria-hidden="true"></i>
             
+            <!-- Sign in and register links for guests -->
             <a class="nav-link" 
-            *ngIf="!loggedIn"
-            [ngClass]="{ 'guest-item': !loggedIn }"
+            *ngIf="!isLoggedIn"
+            [ngClass]="{ 'guest-item': !isLoggedIn }"
             [routerLink]="['/sign-in']" >Sign in</a>
             
             <a class="nav-link" 
-            *ngIf="!loggedIn"
-            [ngClass]="{ 'guest-item': !loggedIn }"
+            *ngIf="!isLoggedIn"
+            [ngClass]="{ 'guest-item': !isLoggedIn }"
             [routerLink]="['/register']">Register</a>
 
+            <!-- My page and logout links for logged in users -->
             <a class="nav-link" 
-            *ngIf="loggedIn"
-            [ngClass]="{ 'user-item': loggedIn }"
-            (click)="onMyPage()">My page</a>
+            *ngIf="isLoggedIn"
+            [ngClass]="{ 'user-item': isLoggedIn }"
+            [routerLink]="['/my-page']">My page</a>
 
             <a class="nav-link" 
-            *ngIf="loggedIn" 
-            [ngClass]="{ 'user-item': loggedIn }"
+            *ngIf="isLoggedIn" 
+            [ngClass]="{ 'user-item': isLoggedIn }"
             (click)="logout()">Logout</a>
 
         </div>
 
+        <!-- Search field (not active) -->
         <div class="search-container">
             <input type="text" id="search-field" placeholder="Search..." aria-label="Search">
             <button class="search" title="Search" aria-label="Search">
@@ -68,3 +79,4 @@
 </header>
 
 <hr class="thin-line">
+

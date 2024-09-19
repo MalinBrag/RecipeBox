@@ -1,10 +1,15 @@
+/**
+ * Interface for the Recipe model structure
+ */
+
 export interface RecipeModel {
-    id: string;
-    title: string;
-    mealType: string[];
-    preferences: string[];
+    uri: string;
+    label: string;
     image: string;
-    description: string;
-    ingredients: string[];
-    instructions: string;
+    healthLabels: string[];
+    ingredientLines: string[];
+    totalTime: number;
+    mealType: string[];
+    dishType: string[];
+    yield: number;
 }

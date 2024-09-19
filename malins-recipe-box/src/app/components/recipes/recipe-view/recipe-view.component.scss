@@ -13,12 +13,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex-wrap: nowrap;
     align-items: center;
-    width: 100%;
+    width: 90%;
+    margin: 2rem 4rem 0 4rem;
     
     .recipe-title {
-        @include h1-style;
         font-size: 3rem;
+        @include h1-style;
 
         @media (max-width: 768px) {
             font-size: 2.2rem;
@@ -31,7 +33,7 @@
 }
 
 .recipe-image {
-    width: 75%;
+    width: 50%;
     height: auto;
     margin: 2rem 0;
 
@@ -40,38 +42,63 @@
     }
 }
 
-.ingredients-container {
-    margin-bottom: 2rem;
-}
-.ingredients-title,
-.instructions-title {
-    @include subheader-style;
-    text-transform: uppercase;
-    margin: 0;
-}
+.columns {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 4rem;
+    width: 90%;
 
-.ingredients-list {
-    margin-top: 0;
-    list-style-type: square;
-    padding-left: 1.5rem;
-
-    li {
-        margin-bottom: 0.3rem;
-        font-style: italic;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 
-.instructions-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 75%;
-}
-.instructions {
-    display: flex;
-    flex-wrap: wrap;
+.column {
+    padding: 0.8rem;
     justify-content: center;
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.5rem;
+        width: 100%;
+    }
 }
+
+.column-title {
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    @include subheader-style;
+}
+
+.favorite-btn {
+    display: flex;
+    flex-grow: 2;
+    justify-content: flex-end;
+    background: none;
+    border: none;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    transition: transform 0.1s ease, color 0.1s ease; 
+  
+    i {
+        cursor: pointer; 
+    
+        &:hover {
+            color: #ff6347; 
+        }
+  
+        &:active {
+            transform: scale(0.9); 
+        }
+    }
+}
+
 
 .share {
     display: flex;

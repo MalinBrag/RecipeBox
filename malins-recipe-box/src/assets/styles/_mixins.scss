@@ -1,5 +1,18 @@
 @use "../styles/variables";
 
+@mixin form-layout {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 0 1rem 1rem 1rem;
+ 
+    @media (max-width: 768px) {
+        flex-direction: column;
+        width: auto;
+    }
+}
+
 @mixin button {
     padding: 10px 20px;
     background-color: $color-tertiary;
@@ -11,6 +24,18 @@
     margin: 1rem 4rem;
     padding: 0.5rem 3rem;
     cursor: pointer;   
+
+    &:hover {
+        background-color: darken($color-tertiary, 10%);
+    }
+}
+
+@mixin close-x-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: $color-primary;
+    font-size: $h1-size;
 }
 
 @mixin heading-style($family, $size, $color, $mobile-font-size: null) {
@@ -41,11 +66,9 @@
     @include heading-style($font-secondary, $h3-size, $color-primary, $h2-size-mobile);
 }
 
-
-
 @mixin profile-heading {
-    @include heading-style($font-tertiary, 1.5rem, $color-primary, $h2-size-mobile);
     font-style: italic;
+    @include heading-style($font-tertiary, 1.5rem, $color-primary, $h2-size-mobile);
 }
 
 
