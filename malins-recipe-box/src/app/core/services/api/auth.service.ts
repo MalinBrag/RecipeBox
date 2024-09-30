@@ -6,12 +6,13 @@ import { LoginResponse } from '../../../shared/models/login-response.model';
 import { User } from '../../../shared/models/user.model';
 import { catchError } from 'rxjs/operators';
 import { ErrorHandlingService } from '../error-handling.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private url = "http://localhost:8000/api";
+  private url = environment.apiUrl;
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   
   //Observable to track login status

@@ -1,0 +1,80 @@
+@use "../styles/variables";
+
+@mixin form-layout {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 0 1rem 1rem 1rem;
+ 
+    @media (max-width: 768px) {
+        flex-direction: column;
+        width: auto;
+    }
+}
+
+@mixin button {
+    padding: 10px 20px;
+    background-color: $color-tertiary;
+    color: $color-secondary;
+    font-family: $font-secondary;
+    font-size: $h3-size;
+    border: none;
+    border-radius: 4px;
+    margin: 1rem 4rem;
+    padding: 0.5rem 3rem;
+    cursor: pointer;   
+
+    &:hover {
+        background-color: darken($color-tertiary, 10%);
+    }
+}
+
+@mixin close-x-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: $color-primary;
+    font-size: $h1-size;
+}
+
+@mixin heading-style($family, $size, $color, $mobile-font-size: null) {
+    font-family: $family;
+    font-size: $size;
+    color: $color;
+
+    @if $mobile-font-size != null {
+        @media (max-width: 768px) {
+            font-size: $mobile-font-size;
+        }
+    }
+}
+
+@mixin h1-style {
+    @include heading-style($font-primary, $h1-size, $color-primary, $h1-size-mobile);
+}
+
+@mixin h2-style {
+    @include heading-style($font-tertiary, $h2-size, $color-primary, $h2-size-mobile);
+}
+
+@mixin subheader-style {
+    @include heading-style($font-secondary, $h1-size, $color-quaternary, $h1-size-mobile);
+}
+
+@mixin link-style {
+    @include heading-style($font-secondary, $h3-size, $color-primary, $h2-size-mobile);
+}
+
+@mixin profile-heading {
+    font-style: italic;
+    @include heading-style($font-tertiary, 1.5rem, $color-primary, $h2-size-mobile);
+}
+
+
+
+
+
+
+
+
