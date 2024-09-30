@@ -8,12 +8,16 @@ services:
     volumes:
       - ../..:/workspaces:cached
     command: sleep infinity
-    network_mode: service:db
+    #network_mode: service:db
     image: backend
     ports:
-      - "${PORT}:80"
-    depends_on:
-      - mysql
+      - "${PORT:-8000}:80"
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+      - DATABASE_USER=${MYSQL_USER}
+      - DATABASE_PASSWORD=${MYSQL_PASSWORD}
+      - DATABASE_NAME=${MYSQL_DATABASE}
 
   client:
     build:
@@ -21,18 +25,18 @@ services:
       dockerfile: Dockerfile
     image: frontend
     ports:
-      - "${PORT}:80"   
+      - "${PORT:-4200}:80"
+    #environment:
+     # - BACKEND_URL=https://backend-production-9d3d.up.railway.app
 
   db:
     image: mariadb:10.4
     restart: unless-stopped
     environment:
+      MYSQL_ROOT_PASSWORD: mariadb
       MYSQL_DATABASE: RecipeDB
       MYSQL_USER: root
       MYSQL_PASSWORD: mariadb
-      MYSQL_ROOT_PASSWORD: mariadb
-    ports:
-      - "3306:3306"
     volumes:
      - mariadb-data:/var/lib/mysql:rw 
 
