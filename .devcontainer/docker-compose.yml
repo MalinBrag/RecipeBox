@@ -28,10 +28,15 @@ services:
       - mariadb-data:/var/lib/mysql:rw
     environment:
       MYSQL_URL: ${MYSQL_PUBLIC_URL}
+      # mysql://root:QnjpBqcncvMWvgmDrsEOoytJlPugUEHh@autorack.proxy.rlwy.net:22550/railway
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # QnjpBqcncvMWvgmDrsEOoytJlPugUEHh
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+      # railway
       MYSQL_USER: ${MYSQLUSER}
+      # root
       MYSQL_PASSWORD: ${MYSQLPASSWORD}
+      # QnjpBqcncvMWvgmDrsEOoytJlPugUEHh
 
     # Add "forwardPorts": ["3306"] to **devcontainer.json** to forward MariaDB locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
