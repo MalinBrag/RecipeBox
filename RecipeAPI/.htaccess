@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine On
+    # Uncomment the following lines if you want to force HTTPS
+    #RewriteCond %{HTTPS} off
+    #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Exclude the 'public' directory from rewriting
+    RewriteCond %{REQUEST_URI} !^/public/
+
+    # Check if the requested URL is not a directory and not a file
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Rewrite all other requests to the 'public' directory
+    RewriteRule ^(.*)$ /public/$1
+
+    # Rewrite the root URL to 'public/index.php'
+    RewriteRule ^(/)?$ public/index.php [L]
+
+</IfModule>

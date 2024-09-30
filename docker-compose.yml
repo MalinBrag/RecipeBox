@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./RecipeAPI
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    network_mode: service:db
+    image: backend
+    ports:
+      - "${PORT}:80"
+    depends_on:
+      - mysql
+
+  client:
+    build:
+      context: ./malins-recipe-box
+      dockerfile: Dockerfile
+    image: frontend
+    ports:
+      - "${PORT}:80"   
+
+  db:
+    image: mariadb:10.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: RecipeDB
+      MYSQL_USER: root
+      MYSQL_PASSWORD: mariadb
+      MYSQL_ROOT_PASSWORD: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+     - mariadb-data:/var/lib/mysql:rw 
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+
+volumes:
+  mariadb-data:
+
+
