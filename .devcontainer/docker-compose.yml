@@ -27,6 +27,7 @@ services:
     volumes:
       - mariadb-data:/var/lib/mysql:rw
     environment:
+      MYSQL_URL: ${MYSQL_URL}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQLUSER}
