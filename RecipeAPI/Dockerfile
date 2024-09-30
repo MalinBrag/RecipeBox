@@ -12,7 +12,7 @@ RUN apt-get update \
 
     RUN chown -R www-data:www-data /var/www/html
 
-    RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
+    RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
     RUN composer install
 
