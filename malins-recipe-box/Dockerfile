@@ -1,6 +1,6 @@
 FROM node:18-alpine as build
 
-WORKDIR /app/malin-recipe-box
+WORKDIR /malin-recipe-box
 
 COPY package.json ./
 
