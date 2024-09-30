@@ -12,7 +12,7 @@ RUN npm run build --configuration=production
 
 FROM nginx:alpine
 
-COPY --from=build /app/malin-recipe-box/dist/malin-recipe-box/browser /usr/share/nginx/html
+COPY --from=build /malin-recipe-box/dist/malin-recipe-box/browser /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
