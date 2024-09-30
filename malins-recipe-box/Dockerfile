@@ -1,4 +1,4 @@
-FROM 18-alpine as build
+FROM node:18-alpine as build
 
 WORKDIR /app/malin-recipe-box
 
