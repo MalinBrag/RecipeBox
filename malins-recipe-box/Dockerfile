@@ -1,6 +1,6 @@
 FROM node:18-alpine as build
 
-WORKDIR /malin-recipe-box
+WORKDIR /malins-recipe-box
 
 COPY package.json ./
 
@@ -12,7 +12,7 @@ RUN npm run build --configuration=production
 
 FROM nginx:alpine
 
-COPY --from=build /malin-recipe-box/dist/malin-recipe-box/browser /usr/share/nginx/html
+COPY --from=build /malins-recipe-box/dist/malins-recipe-box/browser /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
